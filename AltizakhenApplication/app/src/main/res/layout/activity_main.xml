@@ -19,5 +19,7 @@
         android:choiceMode="singleChoice"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/ic_list"/>
+
+
 </android.support.v4.widget.DrawerLayout>
 

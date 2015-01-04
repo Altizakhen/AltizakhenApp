@@ -24,4 +24,5 @@ dependencies {
     compile files('src/main/libs/gson-2.3.1.jar')
     compile 'com.google.code.gson:gson:2.3.+'
     compile project(':facebook')
+    compile project(':backend')
 }
