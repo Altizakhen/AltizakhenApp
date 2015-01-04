@@ -9,6 +9,7 @@ import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.ItemCollection;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.repackaged.com.google.common.base.Objects;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,10 +32,14 @@ public class ApiHelper {
 
     }
 
-    // An example of how to use this API.
-    public void example() {
+    // An example of how to use this API. Shows the first item in Toast.
+    public void getAllItems() {
         QueryItemsTask task = new QueryItemsTask();
         task.execute();
+    }
+
+    public void addItem(Item item) {
+        new AddItemTask().execute(item);
     }
 
     public class QueryItemsTask extends AsyncTask<Void, Void, ItemCollection> {
@@ -59,4 +64,24 @@ public class ApiHelper {
         }
     }
 
-}
+    public class AddItemTask extends AsyncTask<Item, Item, Item> {
+        @Override
+        protected Item doInBackground(Item... items) {
+            Item item = items[0];
+            try {
+                service.addItem(item.getName(), item.getLocation(), item.getPrice(), item.getSellerId(), item.getSellerName(), item.getDescription()).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return item;
+        }
+
+        @Override
+        protected void onPostExecute(Item item) {
+            super.onPostExecute(item);
+            Toast.makeText(context, "Added: " + item.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    }

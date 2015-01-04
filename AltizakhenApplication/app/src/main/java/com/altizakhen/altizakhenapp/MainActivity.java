@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
+
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 import com.altizakhen.altizakhenapp.model.NavDrawerItem;
 
@@ -126,8 +127,16 @@ public class MainActivity extends Activity {
             displayView(0);
         }
 
-        ApiHelper api = new ApiHelper(this);
-        api.example();
+//        ApiHelper api = new ApiHelper(this);
+//        Item exampleItem = new Item();
+//        exampleItem.setDescription("desc");
+//        exampleItem.setName("name");
+//        exampleItem.setLocation("loc");
+//        exampleItem.setPrice(11);
+//        exampleItem.setSellerId(11);
+//        exampleItem.setSellerName("seller");
+//
+//        api.addItem(exampleItem);
     }
 
     /**
