@@ -12,10 +12,12 @@
     <string-array name="nav_drawer_items">
         <item >Home</item>
         <item>Categories</item>
+        <item>My Altizakhen</item>
     </string-array>
 
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
+        <item>@drawable/ic_cat</item>
         <item>@drawable/ic_cat</item>
     </array>
 
