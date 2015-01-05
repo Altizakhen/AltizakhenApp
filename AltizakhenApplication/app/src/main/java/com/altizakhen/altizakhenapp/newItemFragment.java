@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.altizakhen.altizakhenapp.backend.Item;
+import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 
 
 /**
@@ -60,9 +60,9 @@ public class newItemFragment extends Fragment {
         item.setLocation(location);
         item.setPrice(Integer.parseInt(price));
         item.setSellerId(11);
-        //item.setSellerName("seller");
+        item.setSellerName("seller");
 
-        //api.addItem(item);
+        api.addItem(item);
     }
 
 

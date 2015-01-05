@@ -23,6 +23,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
+
+import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 import com.altizakhen.altizakhenapp.model.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class MainActivity extends FragmentActivity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
+    Item item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +129,17 @@ public class MainActivity extends FragmentActivity {
             // on first time display view for first nav item
             displayView(0);
         }
+
+//        ApiHelper api = new ApiHelper(this);
+//        Item exampleItem = new Item();
+//        exampleItem.setDescription("desc");
+//        exampleItem.setName("name");
+//        exampleItem.setLocation("loc");
+//        exampleItem.setPrice(11);
+//        exampleItem.setSellerId(11);
+//        exampleItem.setSellerName("seller");
+//
+//        api.addItem(exampleItem);
     }
 
     @Override
