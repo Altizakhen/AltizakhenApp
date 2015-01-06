@@ -9,10 +9,8 @@ import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.ItemCollection;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.repackaged.com.google.common.base.Objects;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by personal on 1/2/15.
@@ -84,4 +82,23 @@ public class ApiHelper {
         }
     }
 
+    public class DeleteItemTask extends AsyncTask<Item, Item, Item> {
+        @Override
+        protected Item doInBackground(Item... items) {
+            Item item = items[0];
+            try {
+                service.deleteItem(item.getId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return item;
+        }
+
+        @Override
+        protected void onPostExecute(Item item) {
+            super.onPostExecute(item);
+            Toast.makeText(context, "Deleted: " + item.toString(), Toast.LENGTH_LONG).show();
+        }
     }
+}

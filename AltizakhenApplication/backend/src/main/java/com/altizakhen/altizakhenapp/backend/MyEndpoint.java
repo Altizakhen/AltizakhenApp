@@ -13,6 +13,8 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
@@ -28,19 +30,16 @@ import javax.inject.Named;
 @Api(name = "altizakhenApi", version = "v1", namespace = @ApiNamespace(ownerDomain = "backend.altizakhenapp.altizakhen.com", ownerName = "backend.altizakhenapp.altizakhen.com", packagePath = ""))
 public class MyEndpoint {
 
-    List<Item> items = new ArrayList<Item>() {{
-        add(new Item("Chair", "Taub", 20, 13, "3bse", "Best Chair Ever! but its broken.."));
-        add(new Item("Bed", "Taub", 20, 13, "3bse", "Its a bed.. broken though.."));
-    }};
-
     @ApiMethod(name = "addItem")
-    public void addItem(@Named("Name") String name, @Named("Location") String location,
+    public Item addItem(@Named("Name") String name, @Named("Location") String location,
                         @Named("Price") int price,  @Named("SellerId") int sellerId,
                         @Named("SellerName") String sellerName,
                         @Named("Description") String description) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-        Entity item = new Entity("Item");
+        Key key = KeyFactory.createKey("Item", name);
+
+        Entity item = new Entity("Item", key);
         item.setProperty("Name", name);
         item.setProperty("Location", location);
         item.setProperty("Price", price);
@@ -49,6 +48,8 @@ public class MyEndpoint {
         item.setProperty("Description", description);
 
         datastore.put(item);
+
+        return entityToItem(item);
     }
 
     @ApiMethod(name = "getAllItems")
@@ -67,11 +68,19 @@ public class MyEndpoint {
         return items;
     }
 
+    @ApiMethod(name = "deleteItem")
+    public void deleteItem(@Named("itemId") String itemId) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        datastore.delete(KeyFactory.stringToKey(itemId));
+    }
+
     private Item entityToItem(Entity entity) {
-        Item item = new Item(
+        Item item = new Item(KeyFactory.keyToString(entity.getKey()),
                 entity.getProperty("Name").toString(), entity.getProperty("Location").toString(),
                 Integer.parseInt(entity.getProperty("Price").toString()), Integer.parseInt(entity.getProperty("SellerId").toString()),
                 entity.getProperty("SellerName").toString(), entity.getProperty("Description").toString());
+
         return item;
     }
 
