@@ -4,14 +4,17 @@ package com.altizakhen.altizakhenapp;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
 import java.util.Arrays;
@@ -20,6 +23,8 @@ import java.util.Arrays;
  * Created by t-mansh on 12/29/2014.
  */
 public class MyAltizakhen extends Fragment {
+    private TextView userInfoTextView;
+
     public MyAltizakhen() {
     }
 
@@ -39,9 +44,22 @@ public class MyAltizakhen extends Fragment {
                                       Exception exception) {
         if (state.isOpened()) {
             // hon bte3'dar et3'ayer el log-in buttun et7ot ma7alo log-out
-            Log.i(TAG, "Logged in...");
+//            Log.i(TAG, "Logged in...");
+            userInfoTextView.setVisibility(View.VISIBLE);
+            // Request user data and show the results
+            Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+
+                @Override
+                public void onCompleted(GraphUser user, Response response) {
+                    if (user != null) {
+                        // Display the parsed user info
+                        userInfoTextView.setText(buildUserInfoDisplay(user));
+                    }
+                }
+            });
         } else if (state.isClosed()) {
-            Log.i(TAG, "Logged out...");
+//            Log.i(TAG, "Logged out...");
+            userInfoTextView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -100,12 +118,38 @@ public class MyAltizakhen extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fblogin_layout, container,
                 false);
+        userInfoTextView = (TextView) rootView.findViewById(R.id.userInfoTextView);
         LoginButton authButton = (LoginButton) rootView
                 .findViewById(R.id.authButton);
-        authButton.setReadPermissions(Arrays.asList("public_profile"));
+        authButton.setReadPermissions(Arrays.asList("public_profile","user_location"));
 
         authButton.setFragment(this);
         return rootView;
+    }
+
+    private String buildUserInfoDisplay(GraphUser user) {
+        StringBuilder userInfo = new StringBuilder("");
+
+        // Example: typed access (name)
+        // - no special permissions required
+        userInfo.append(String.format("Name: %s\n\n",
+                user.getName()));
+        userInfo.append(String.format("Id: %s\n\n",
+                user.getId()));
+
+        // Example: partially typed access, to location field,
+        // name key (location)
+        // - requires user_location permission
+        userInfo.append(String.format("Location: %s\n\n",
+                user.getLocation().getProperty("name")));
+
+        // Example: access via property name (locale)
+        // - no special permissions required
+        userInfo.append(String.format("Locale: %s\n\n",
+                user.getProperty("locale")));
+
+
+        return userInfo.toString();
     }
 }
 
