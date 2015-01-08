@@ -1,6 +1,11 @@
 package com.altizakhen.altizakhenapp;
 
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,16 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+
+import java.io.InputStream;
 
 
 /**
 * Created by t-mansh on 1/2/2015.
 */
 public class newItemFragment extends Fragment {
-
+    ImageButton img;
     public newItemFragment() {
     }
 
@@ -25,6 +33,14 @@ public class newItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.new_item, container, false);
         Button b = (Button) rootView.findViewById(R.id.button);
+        img = (ImageButton) rootView.findViewById(R.id.imageButton);
+        img.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                OnImageButtonClickHandler();
+            }
+        });
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,6 +48,34 @@ public class newItemFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    private void OnImageButtonClickHandler() {
+        Intent imageSelect = new Intent(Intent.ACTION_PICK);
+        imageSelect.setType("image/*");
+        startActivityForResult(imageSelect, 100);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case 100:
+                if(resultCode == Activity.RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    try {
+                        InputStream imageStream = getActivity().getContentResolver().openInputStream(selectedImage);
+                        Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                        img.setImageBitmap(yourSelectedImage);
+
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(),"oh fuck !! ", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+        }
     }
 
 
