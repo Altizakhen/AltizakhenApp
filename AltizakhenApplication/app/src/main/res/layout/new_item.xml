@@ -17,11 +17,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="161dp"
+                android:layout_height="161dp"
                 android:id="@+id/imageButton"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.34" />
+                android:layout_weight="0.34"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="93dp"
