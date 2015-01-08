@@ -6,8 +6,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textSize="16dp"
-        android:text="Home View"/>
+        android:textSize="@android:dimen/notification_large_icon_height"
+        android:text="Home View"
+        android:textColor="#ffe94fe6" />
 
     <ImageView android:layout_width="wrap_content"
         android:layout_height="wrap_content"

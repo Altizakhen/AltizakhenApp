@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/ic_launcher">
 
     <ImageButton
         android:layout_width="161dp"
@@ -17,7 +18,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Give it a name:"
         android:id="@+id/textView3"
-        android:layout_weight="0.04" />
+        android:layout_weight="0.04"
+        style="@android:style/Animation"
+        android:textStyle="bold|italic"
+        android:textColor="#ffed3c93" />
 
     <EditText
         android:layout_width="167dp"
@@ -30,7 +34,9 @@
         android:layout_height="wrap_content"
         android:text="Price:"
         android:id="@+id/textView4"
-        android:layout_weight="0.05" />
+        android:layout_weight="0.05"
+        android:textColor="#FFED3C93"
+        android:textStyle="bold|italic" />
 
     <EditText
         android:layout_width="159dp"
@@ -44,7 +50,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Description:"
         android:id="@+id/textView5"
-        android:layout_weight="0.08" />
+        android:layout_weight="0.08"
+        android:textColor="#FFED3C93"
+        android:textStyle="bold|italic" />
 
     <EditText
         android:layout_width="170dp"
@@ -59,7 +67,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Where to get it from:"
         android:id="@+id/textView6"
-        android:layout_weight="0.08" />
+        android:layout_weight="0.08"
+        android:textColor="#FFED3C93"
+        android:textStyle="bold|italic" />
 
     <EditText
         android:layout_width="201dp"
