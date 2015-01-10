@@ -14,6 +14,7 @@ public class Item {
     private int sellerId;
     private String sellerName;
     private String description;
+    private int countView;
 
     public Item(String id, String name, String location, int price, int sellerId, String sellerName, String description) {
         this.id = id;
@@ -23,6 +24,7 @@ public class Item {
         this.sellerId = sellerId;
         this.sellerName = sellerName;
         this.description = description;
+        this.countView = 0;
     }
 
     public String getId() {

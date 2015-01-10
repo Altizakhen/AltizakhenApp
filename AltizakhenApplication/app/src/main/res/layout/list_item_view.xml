@@ -37,4 +37,15 @@
             android:text="Content"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_to_cart"
+        android:background="@android:drawable/ic_menu_add"
+        android:layout_alignTop="@+id/Name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="70dp"
+        android:layout_marginEnd="70dp" />
+
 </RelativeLayout>

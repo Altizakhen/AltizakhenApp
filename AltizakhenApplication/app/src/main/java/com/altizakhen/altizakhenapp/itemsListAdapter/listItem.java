@@ -9,6 +9,10 @@ public class listItem {
     private String addDate;
     private int iconId;
 
+    private int sellerId;
+    private int itemId;
+
+
     public listItem(String name, int price, String date, int iconId) {
         super();
         this.Name = name;

@@ -30,8 +30,6 @@ import com.altizakhen.altizakhenapp.model.NavDrawerItem;
 import java.util.ArrayList;
 
 
-
-
 public class MainActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -149,9 +147,10 @@ public class MainActivity extends FragmentActivity {
         inflater.inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     /**
      * Slide menu item click listener
-     * */
+     */
     private class SlideMenuClickListener implements
             ListView.OnItemClickListener {
         @Override
@@ -161,7 +160,6 @@ public class MainActivity extends FragmentActivity {
             displayView(position);
         }
     }
-
 
 
     @Override
@@ -175,12 +173,12 @@ public class MainActivity extends FragmentActivity {
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.cart:
-            break;
+                break;
             case R.id.new_item:
                 fragment = new newItemFragment();
-            break;
+                break;
         }
-        if (fragment != null){
+        if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
@@ -191,7 +189,7 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    /***
+    /**
      * Called when invalidateOptionsMenu() is triggered
      */
     @Override
@@ -203,7 +201,7 @@ public class MainActivity extends FragmentActivity {
 
     /**
      * Diplaying fragment view for selected nav drawer list item
-     * */
+     */
     private void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;

@@ -32,7 +32,7 @@ public class Books extends Fragment {
 
         items = new ArrayList<listItem>();
         populateList();
-        listAdapter adapter = new listAdapter(getActivity(), items);
+        listAdapter adapter = new listAdapter(getActivity(), items, 0);
         itemList.setAdapter(adapter);
 
         return rootView;
@@ -41,6 +41,7 @@ public class Books extends Fragment {
     private void populateList() {
 
         items.add(new listItem("bed", 75, "2015.01.02", R.drawable.ic_cat));
+        items.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_cat));
     }
 
 }

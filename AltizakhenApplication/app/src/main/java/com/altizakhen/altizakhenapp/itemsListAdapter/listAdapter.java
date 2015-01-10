@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +21,12 @@ public class listAdapter extends BaseAdapter{
 
     private Context context;
     private ArrayList<listItem> Items;
+    private int visibility;
 
-    public listAdapter(Context context, ArrayList<listItem> Items){
+    public listAdapter(Context context, ArrayList<listItem> Items, int visibility){
         this.context = context;
         this.Items = Items;
+        this.visibility = visibility;
     }
 
     @Override
@@ -62,6 +65,13 @@ public class listAdapter extends BaseAdapter{
         //Date
         TextView dateText = (TextView) convertView.findViewById(R.id.Date);
         dateText.setText(currentItem.getAddDate());
+
+        Button addToCart = (Button)convertView.findViewById(R.id.add_to_cart);
+        if (visibility == 0){
+            addToCart.setVisibility(View.VISIBLE);
+        } else {
+            addToCart.setVisibility(View.INVISIBLE);
+        }
 
         return convertView;
     }

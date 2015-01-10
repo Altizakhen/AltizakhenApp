@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
@@ -32,6 +34,7 @@ public class newItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.new_item, container, false);
+       CustomizeFont(rootView);
         Button b = (Button) rootView.findViewById(R.id.button);
         img = (ImageButton) rootView.findViewById(R.id.imageButton);
         img.setOnClickListener(new View.OnClickListener(){
@@ -48,6 +51,19 @@ public class newItemFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    private void CustomizeFont(View rootView) {
+        Typeface type = Typeface.createFromAsset(getActivity().getAssets(),"djb.ttf");
+        TextView name = (TextView) rootView.findViewById(R.id.textView3);
+        TextView price = (TextView) rootView.findViewById(R.id.textView4);
+        TextView description = (TextView) rootView.findViewById(R.id.textView5);
+        TextView location = (TextView) rootView.findViewById(R.id.textView6);
+        name.setTypeface(type);
+        price.setTypeface(type);
+        description.setTypeface(type);
+        location.setTypeface(type);
+
     }
 
     private void OnImageButtonClickHandler() {
@@ -107,6 +123,7 @@ public class newItemFragment extends Fragment {
         item.setSellerName("seller");
 
         api.addItem(item);
+        // TODO: should return the item's id
     }
 
 
