@@ -28,6 +28,7 @@ import java.io.InputStream;
 */
 public class newItemFragment extends Fragment {
     ImageButton img;
+    static Bitmap yourSelectedImage;
     public newItemFragment() {
     }
 
@@ -44,6 +45,9 @@ public class newItemFragment extends Fragment {
                 OnImageButtonClickHandler();
             }
         });
+        if (yourSelectedImage != null) {
+            img.setImageBitmap(yourSelectedImage);
+        }
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +87,7 @@ public class newItemFragment extends Fragment {
                     Uri selectedImage = imageReturnedIntent.getData();
                     try {
                         InputStream imageStream = getActivity().getContentResolver().openInputStream(selectedImage);
-                        Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                        yourSelectedImage = BitmapFactory.decodeStream(imageStream);
                         img.setImageBitmap(yourSelectedImage);
 
                     } catch (Exception e) {

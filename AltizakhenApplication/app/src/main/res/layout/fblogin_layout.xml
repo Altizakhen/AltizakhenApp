@@ -8,17 +8,25 @@
         android:id="@+id/authButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         />
 
     <TextView
         android:id="@+id/userInfoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="336dp"
+        android:layout_height="95dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:visibility="invisible"
         />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"/>
+
+
 </LinearLayout>

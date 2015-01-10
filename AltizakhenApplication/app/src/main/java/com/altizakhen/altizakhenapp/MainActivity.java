@@ -34,6 +34,7 @@ public class MainActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    static String userId;
 
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -177,6 +178,9 @@ public class MainActivity extends FragmentActivity {
             case R.id.new_item:
                 fragment = new newItemFragment();
                 break;
+        }
+        if(MainActivity.userId == null) {
+            fragment = new pleaseLoginFragment();
         }
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
