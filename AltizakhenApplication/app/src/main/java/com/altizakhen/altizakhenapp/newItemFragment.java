@@ -26,17 +26,18 @@ import java.io.InputStream;
 /**
 * Created by t-mansh on 1/2/2015.
 */
-public class newItemFragment extends Fragment {
+public class newItemFragment extends Activity {
     ImageButton img;
     public newItemFragment() {
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.new_item, container, false);
-       CustomizeFont(rootView);
-        Button b = (Button) rootView.findViewById(R.id.button);
-        img = (ImageButton) rootView.findViewById(R.id.imageButton);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.new_item);
+        CustomizeFont();
+        Button b = (Button) findViewById(R.id.button);
+        img = (ImageButton) findViewById(R.id.imageButton);
         img.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -50,15 +51,15 @@ public class newItemFragment extends Fragment {
                 onClickHandler();
             }
         });
-        return rootView;
+
     }
 
-    private void CustomizeFont(View rootView) {
-        Typeface type = Typeface.createFromAsset(getActivity().getAssets(),"djb.ttf");
-        TextView name = (TextView) rootView.findViewById(R.id.textView3);
-        TextView price = (TextView) rootView.findViewById(R.id.textView4);
-        TextView description = (TextView) rootView.findViewById(R.id.textView5);
-        TextView location = (TextView) rootView.findViewById(R.id.textView6);
+    private void CustomizeFont() {
+        Typeface type = Typeface.createFromAsset(getAssets(),"djb.ttf");
+        TextView name = (TextView) findViewById(R.id.textView3);
+        TextView price = (TextView) findViewById(R.id.textView4);
+        TextView description = (TextView) findViewById(R.id.textView5);
+        TextView location = (TextView) findViewById(R.id.textView6);
         name.setTypeface(type);
         price.setTypeface(type);
         description.setTypeface(type);
@@ -82,12 +83,12 @@ public class newItemFragment extends Fragment {
                 if(resultCode == Activity.RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
                     try {
-                        InputStream imageStream = getActivity().getContentResolver().openInputStream(selectedImage);
+                        InputStream imageStream = getContentResolver().openInputStream(selectedImage);
                         Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
                         img.setImageBitmap(yourSelectedImage);
 
                     } catch (Exception e) {
-                        Toast.makeText(getActivity(),"oh fuck !! ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,"oh fuck !! ", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -96,24 +97,24 @@ public class newItemFragment extends Fragment {
 
 
     void onClickHandler() {
-        String productName = ((EditText) getView().findViewById(R.id.name)).getText().toString();
-        String price = ((EditText) getView().findViewById(R.id.price)).getText().toString();
-        String description = ((EditText) getView().findViewById(R.id.description)).getText().toString();
-        String location = ((EditText) getView().findViewById(R.id.place)).getText().toString();
+        String productName = ((EditText) findViewById(R.id.name)).getText().toString();
+        String price = ((EditText) findViewById(R.id.price)).getText().toString();
+        String description = ((EditText) findViewById(R.id.description)).getText().toString();
+        String location = ((EditText) findViewById(R.id.place)).getText().toString();
 
         if (productName.isEmpty()) {
-            Toast.makeText(getActivity(), "Enter the product's Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter the product's Name", Toast.LENGTH_SHORT).show();
             return;
         }
         if (price.isEmpty()) {
-            Toast.makeText(getActivity(), "Enter the product's Price", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter the product's Price", Toast.LENGTH_SHORT).show();
             return;
         }
         if (location.isEmpty()) {
-            Toast.makeText(getActivity(), "Enter the pick up location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter the pick up location", Toast.LENGTH_SHORT).show();
             return;
         }
-        ApiHelper api = new ApiHelper(getActivity());
+        ApiHelper api = new ApiHelper(this);
         Item item = new Item();
         item.setDescription(description);
         item.setName(productName);
