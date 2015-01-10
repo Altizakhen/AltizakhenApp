@@ -12,16 +12,18 @@ public class Item {
     private String location;
     private int price;
     private int sellerId;
+    private int viewCount;
     private String sellerName;
     private String description;
     private int countView;
 
-    public Item(String id, String name, String location, int price, int sellerId, String sellerName, String description) {
+    public Item(String id, String name, String location, int price, int sellerId, int viewCount, String sellerName, String description) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.price = price;
         this.sellerId = sellerId;
+        this.viewCount = viewCount;
         this.sellerName = sellerName;
         this.description = description;
         this.countView = 0;
@@ -77,5 +79,13 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
 }

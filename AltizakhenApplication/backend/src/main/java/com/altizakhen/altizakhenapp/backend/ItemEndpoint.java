@@ -1,9 +1,3 @@
-/*
-   For step-by-step instructions on connecting your Android application to this backend module,
-   see "App Engine Java Endpoints Module" template documentation at
-   https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints
-*/
-
 package com.altizakhen.altizakhenapp.backend;
 
 import com.google.api.server.spi.config.Api;
@@ -20,20 +14,30 @@ import com.google.appengine.api.datastore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.inject.Named;
 
 /**
  * An endpoint class we are exposing
  */
-@Api(name = "altizakhenApi", version = "v1", namespace = @ApiNamespace(ownerDomain = "backend.altizakhenapp.altizakhen.com", ownerName = "backend.altizakhenapp.altizakhen.com", packagePath = ""))
-public class MyEndpoint {
+@Api(
+        name = "itemApi",
+        version = "v1",
+        resource = "item",
+        namespace = @ApiNamespace(
+                ownerDomain = "backend.altizakhenapp.altizakhen.com",
+                ownerName = "backend.altizakhenapp.altizakhen.com",
+                packagePath = ""
+        )
+)
+public class ItemEndpoint {
+
+    private static final Logger logger = Logger.getLogger(ItemEndpoint.class.getName());
 
     @ApiMethod(name = "addItem")
     public Item addItem(@Named("Name") String name, @Named("Location") String location,
                         @Named("Price") int price,  @Named("SellerId") int sellerId,
-                        @Named("SellerName") String sellerName,
                         @Named("Description") String description) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -42,9 +46,10 @@ public class MyEndpoint {
         Entity item = new Entity("Item", key);
         item.setProperty("Name", name);
         item.setProperty("Location", location);
+        item.setProperty("ViewCount", 0);
         item.setProperty("Price", price);
         item.setProperty("SellerId", sellerId);
-        item.setProperty("SellerName", sellerName);
+        item.setProperty("SellerName", "");
         item.setProperty("Description", description);
 
         datastore.put(item);
@@ -75,14 +80,44 @@ public class MyEndpoint {
         datastore.delete(KeyFactory.stringToKey(itemId));
     }
 
+    @ApiMethod(name = "increaseViewCount")
+    public void increaseViewCount(@Named("id") String itemId) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Entity item = getEntityFromItemId(itemId);
+
+        int currentViewCount = Integer.parseInt(item.getProperty("ViewCount").toString());
+        currentViewCount++;
+
+        item.setProperty("ViewCount", currentViewCount);
+
+        datastore.put(item);
+    }
+
+
+    /* Helper functions */
+
+
     private Item entityToItem(Entity entity) {
         Item item = new Item(KeyFactory.keyToString(entity.getKey()),
                 entity.getProperty("Name").toString(), entity.getProperty("Location").toString(),
                 Integer.parseInt(entity.getProperty("Price").toString()), Integer.parseInt(entity.getProperty("SellerId").toString()),
-                entity.getProperty("SellerName").toString(), entity.getProperty("Description").toString());
+                Integer.parseInt(entity.getProperty("ViewCount").toString()), entity.getProperty("SellerName").toString(),
+                entity.getProperty("Description").toString());
 
         return item;
     }
 
+    private Entity getEntityFromItemId(String itemId) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
+        Query.Filter itemFilter =
+                new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY,
+                        Query.FilterOperator.EQUAL,
+                        KeyFactory.stringToKey(itemId));
+
+        Query query = new Query("Item").setFilter(itemFilter);
+        PreparedQuery pq = datastore.prepare(query);
+        return pq.asSingleEntity();
+    }
 }
