@@ -1,5 +1,6 @@
 package com.altizakhen.altizakhenapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,21 +42,24 @@ public class categoriesFragment extends Fragment {
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Fragment fragment = null;
+                Intent intent = null;
                 switch (position){
                     case 0:
-                        fragment = new Books();
+                        intent = new Intent(getActivity(), Books.class);
                         break;
                     case 1:
-                        fragment = new Furniture();
+                        intent = new Intent(getActivity(), Electronics.class);
                         break;
                     case 3:
-                        fragment = new Electronics();
+                        intent = new Intent(getActivity(), Furniture.class);
+
                         break;
                 }
-                FragmentManager fragmentManager = ((MainActivity)getActivity()).getSupportFragmentManager();
+                /*FragmentManager fragmentManager = ((MainActivity)getActivity()).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container, fragment).commit();
+                        .replace(R.id.frame_container, fragment).commit();*/
+
+                startActivity(intent);
 
             }
         });
@@ -68,13 +72,6 @@ public class categoriesFragment extends Fragment {
         items.add(R.drawable.ic_books);
         items.add(R.drawable.ic_furniture);
         items.add(R.drawable.ic_electonics);
-    }
-
-    void onClickHandler() {
-        Fragment books = new Books();
-        FragmentManager fragmentManager = ((MainActivity)getActivity()).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.frame_container, books).commit();
     }
 
 }

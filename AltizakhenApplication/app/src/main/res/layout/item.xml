@@ -6,28 +6,100 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="40dp"
         android:text="Medium Text"
         android:id="@+id/item_name"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginLeft="61dp"
+        android:layout_marginStart="61dp"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/textView2"
-        android:layout_toStartOf="@+id/textView2" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#FF45A7C0" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/textView2"
-        android:layout_below="@+id/item_name"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/item_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="188dp"
+        android:layout_marginEnd="188dp"
+        android:layout_alignBottom="@+id/item_name"
+        android:textColor="#FF45A7C0"
+        android:textSize="20dp" />
 
     <ImageView
+        android:id="@+id/item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="100dp"
+        android:src="@drawable/images"
+        android:layout_marginTop="111dp"
+        android:layout_below="@+id/textView7"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/item_name"
+        android:layout_alignLeft="@+id/item_name"
+        android:layout_alignStart="@+id/item_name"
+        android:layout_alignRight="@+id/item_name"
+        android:layout_alignEnd="@+id/item_name"
+        android:textColor="#FF45A7C0"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Discreption"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/item_icon"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7"
+        android:layout_marginTop="85dp"
+        android:textColor="#FF45A7C0" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_above="@+id/textView2"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@android:drawable/ic_delete"
+        android:visibility="visible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Seller"
+        android:id="@+id/button3"
+        android:layout_below="@+id/textView8"
+        android:layout_marginTop="111dp"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_toLeftOf="@+id/button2"
+        android:layout_toStartOf="@+id/button2"
+        android:background="#FF45A7C0"
+        android:textColor="#ffffffff"
+        android:textSize="30dp"
+        android:visibility="visible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/textView8"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignStart="@+id/button3" />
+
+
 </RelativeLayout>

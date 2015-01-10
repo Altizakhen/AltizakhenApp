@@ -3,6 +3,7 @@ package com.altizakhen.altizakhenapp;
 import android.app.Activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.altizakhen.altizakhenapp.Categories.Electronics;
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
 
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
@@ -169,25 +171,26 @@ public class MainActivity extends FragmentActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        Fragment fragment = null;
+        Intent intent = null;
 
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.cart:
                 break;
             case R.id.new_item:
-                fragment = new newItemFragment();
+                intent = new Intent(this, newItemFragment.class);
                 break;
         }
+
+        Fragment fragment = null;
         if(MainActivity.userId == null) {
             fragment = new pleaseLoginFragment();
-        }
-        if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
             return true;
         }
+        startActivity(intent);
 
         return super.onOptionsItemSelected(item);
 

@@ -24,7 +24,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -38,6 +38,10 @@
             android:name="com.facebook.LoginActivity"
             android:label="title_facebook_login" >
         </activity>
+        <activity android:name=".Categories.Books"/>
+        <activity android:name=".Categories.Electronics"/>
+        <activity android:name=".Categories.Furniture"/>
+        <activity android:name=".newItemFragment"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

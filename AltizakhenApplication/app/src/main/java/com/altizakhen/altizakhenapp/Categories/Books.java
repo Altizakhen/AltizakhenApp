@@ -1,5 +1,6 @@
 package com.altizakhen.altizakhenapp.Categories;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by t-mansh on 1/7/2015.
  */
-public class Books extends Fragment {
+public class Books extends Activity {
 
     private ArrayList<listItem> items;
     private ListView itemList;
@@ -24,6 +25,20 @@ public class Books extends Fragment {
     public Books(){ }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.books);
+
+        itemList = (ListView) findViewById(R.id.listView);
+
+        items = new ArrayList<listItem>();
+        populateList();
+        listAdapter adapter = new listAdapter(this, items, 0);
+        itemList.setAdapter(adapter);
+    }
+
+
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -32,12 +47,12 @@ public class Books extends Fragment {
 
         items = new ArrayList<listItem>();
         populateList();
-        listAdapter adapter = new listAdapter(getActivity(), items, 0);
+        listAdapter adapter = new listAdapter(this, items, 0);
         itemList.setAdapter(adapter);
 
         return rootView;
     }
-
+*/
     private void populateList() {
 
         items.add(new listItem("bed", 75, "2015.01.02", R.drawable.ic_cat));
