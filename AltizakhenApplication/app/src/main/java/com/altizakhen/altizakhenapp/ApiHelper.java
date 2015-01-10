@@ -40,10 +40,6 @@ public class ApiHelper {
         new AddItemTask().execute(item);
     }
 
-    public void increaseViewCount(Item item) {
-        new IncreaseViewCountTask().execute(item.getId());
-    }
-
     public class QueryItemsTask extends AsyncTask<Void, Void, ItemCollection> {
         @Override
         protected ItemCollection doInBackground(Void... voids) {
@@ -103,20 +99,6 @@ public class ApiHelper {
         protected void onPostExecute(Item item) {
             super.onPostExecute(item);
             Toast.makeText(context, "Deleted: " + item.toString(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public class IncreaseViewCountTask extends AsyncTask<String, String, Void> {
-        @Override
-        protected Void doInBackground(String... items) {
-            String itemId = items[0];
-            try {
-                service.increaseViewCount(itemId);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
         }
     }
 }
