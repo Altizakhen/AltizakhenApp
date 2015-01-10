@@ -18,7 +18,7 @@
         android:text="Go to Log-in"
         android:id="@+id/button2"
         android:layout_below="@+id/textView2"
-        android:layout_align="@id/textView2" />
+         />
 
 
     <RelativeLayout
