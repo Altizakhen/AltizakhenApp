@@ -36,21 +36,21 @@ public class ItemEndpoint {
     private static final Logger logger = Logger.getLogger(ItemEndpoint.class.getName());
 
     @ApiMethod(name = "addItem")
-    public Item addItem(@Named("Name") String name, @Named("Location") String location,
-                        @Named("Price") int price,  @Named("SellerId") int sellerId,
-                        @Named("Description") String description) {
+    public Item addItem(@Named("name") String name, @Named("location") String location, @Named("categoryName") String categoryName,
+                        @Named("price") int price,  @Named("userId") String userId, @Named("description") String description) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         Key key = KeyFactory.createKey("Item", name);
 
         Entity item = new Entity("Item", key);
-        item.setProperty("Name", name);
-        item.setProperty("Location", location);
-        item.setProperty("ViewCount", 0);
-        item.setProperty("Price", price);
-        item.setProperty("SellerId", sellerId);
-        item.setProperty("SellerName", "");
-        item.setProperty("Description", description);
+        item.setProperty("name", name);
+        item.setProperty("location", location);
+        item.setProperty("categoryName", categoryName);
+        item.setProperty("viewCount", 0);
+        item.setProperty("price", price);
+        item.setProperty("userId", userId);
+        item.setProperty("userName", UserEndpoint.getUserFromId(userId).getProperty("name"));
+        item.setProperty("description", description);
 
         datastore.put(item);
 
@@ -86,10 +86,10 @@ public class ItemEndpoint {
 
         Entity item = getEntityFromItemId(itemId);
 
-        int currentViewCount = Integer.parseInt(item.getProperty("ViewCount").toString());
+        int currentViewCount = Integer.parseInt(item.getProperty("viewCount").toString());
         currentViewCount++;
 
-        item.setProperty("ViewCount", currentViewCount);
+        item.setProperty("viewCount", currentViewCount);
 
         datastore.put(item);
     }
@@ -98,12 +98,12 @@ public class ItemEndpoint {
     /* Helper functions */
 
 
-    private Item entityToItem(Entity entity) {
+    public static Item entityToItem(Entity entity) {
         Item item = new Item(KeyFactory.keyToString(entity.getKey()),
-                entity.getProperty("Name").toString(), entity.getProperty("Location").toString(),
-                Integer.parseInt(entity.getProperty("Price").toString()), Integer.parseInt(entity.getProperty("SellerId").toString()),
-                Integer.parseInt(entity.getProperty("ViewCount").toString()), entity.getProperty("SellerName").toString(),
-                entity.getProperty("Description").toString());
+                entity.getProperty("name").toString(), entity.getProperty("location").toString(),
+                entity.getProperty("categoryName").toString(), Integer.parseInt(entity.getProperty("price").toString()), entity.getProperty("userId").toString(),
+                Integer.parseInt(entity.getProperty("viewCount").toString()), entity.getProperty("userName").toString(),
+                entity.getProperty("description").toString());
 
         return item;
     }

@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 
 import java.io.InputStream;
 
@@ -113,16 +113,16 @@ public class newItemFragment extends Fragment {
             Toast.makeText(getActivity(), "Enter the pick up location", Toast.LENGTH_SHORT).show();
             return;
         }
-        ApiHelper api = new ApiHelper(getActivity());
-        Item item = new Item();
-        item.setDescription(description);
-        item.setName(productName);
-        item.setLocation(location);
-        item.setPrice(Integer.parseInt(price));
-        item.setSellerId(11);
-        item.setSellerName("seller");
-
-        api.addItem(item);
+//        ApiHelper api = new ApiHelper(getActivity());
+//        Item item = new Item();
+//        item.setDescription(description);
+//        item.setName(productName);
+//        item.setLocation(location);
+//        item.setPrice(Integer.parseInt(price));
+//        item.setSellerId(11);
+//        item.setSellerName("seller");
+//
+//        api.addItem(item);
         // TODO: should return the item's id
     }
 

@@ -6,11 +6,14 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Named;
@@ -47,9 +50,29 @@ public class UserEndpoint {
         return entityToUser(item);
     }
 
+    @ApiMethod(name = "getUserItems")
+    public List<Item> getUserItems(@Named("userId") String userId) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Query.Filter itemFilter =
+                new Query.FilterPredicate("userId",
+                        Query.FilterOperator.EQUAL,
+                        userId);
+
+        Query query = new Query("Item").setFilter(itemFilter);
+        PreparedQuery pq = datastore.prepare(query);
+
+        List<Item> items = new ArrayList<Item>();
+        List<Entity> entities = pq.asList(FetchOptions.Builder.withDefaults());
+        for (Entity entity : entities) {
+            items.add(ItemEndpoint.entityToItem(entity));
+        }
+
+        return items;
+    }
 
     /* internal functions */
-    private Entity getUserFromId(String userId) {
+    public static Entity getUserFromId(String userId) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         Key key = KeyFactory.stringToKey(userId);

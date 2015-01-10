@@ -24,7 +24,7 @@ import android.widget.ListView;
 
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.model.NavDrawerItem;
 
 import java.util.ArrayList;
