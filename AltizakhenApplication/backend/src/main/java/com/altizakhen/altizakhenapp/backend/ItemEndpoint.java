@@ -94,10 +94,28 @@ public class ItemEndpoint {
         datastore.put(item);
     }
 
+    @ApiMethod(name = "getItemsInCategory")
+    public List<Item> getItemsInCategory(@Named("categoryName") String categoryName) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Query.Filter itemFilter =
+                new Query.FilterPredicate("categoryName",
+                        Query.FilterOperator.EQUAL,
+                        categoryName);
+
+        Query query = new Query("Item").setFilter(itemFilter);
+        PreparedQuery pq = datastore.prepare(query);
+
+        List<Item> items = new ArrayList<Item>();
+        List<Entity> entities = pq.asList(FetchOptions.Builder.withDefaults());
+        for (Entity entity : entities) {
+            items.add(ItemEndpoint.entityToItem(entity));
+        }
+
+        return items;
+    }
 
     /* Helper functions */
-
-
     public static Item entityToItem(Entity entity) {
         Item item = new Item(KeyFactory.keyToString(entity.getKey()),
                 entity.getProperty("name").toString(), entity.getProperty("location").toString(),

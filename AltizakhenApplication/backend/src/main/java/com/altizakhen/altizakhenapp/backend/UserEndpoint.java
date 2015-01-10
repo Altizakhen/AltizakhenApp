@@ -39,6 +39,12 @@ public class UserEndpoint {
     public User addUser(@Named("Name") String name, @Named("facebookId") String facebookId) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
+        Entity user = getUserByFacebookId(facebookId);
+        if (user != null) {
+            // User already added to database. Return it.
+            return entityToUser(user);
+        }
+
         Key key = KeyFactory.createKey("User", name);
 
         Entity item = new Entity("User", key);
@@ -71,7 +77,38 @@ public class UserEndpoint {
         return items;
     }
 
+    @ApiMethod(name = "getAllItems")
+    public List<User> getAllItems() {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Query query = new Query("User");
+        PreparedQuery pq = datastore.prepare(query);
+
+        List<User> items = new ArrayList<User>();
+        List<Entity> entities = pq.asList(FetchOptions.Builder.withDefaults());
+        for (Entity entity : entities) {
+            items.add(entityToUser(entity));
+        }
+
+        return items;
+    }
+
     /* internal functions */
+
+    private Entity getUserByFacebookId(String facebookId) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Query.Filter itemFilter =
+                new Query.FilterPredicate("facebookId",
+                        Query.FilterOperator.EQUAL,
+                        facebookId);
+
+        Query query = new Query("User").setFilter(itemFilter);
+        PreparedQuery pq = datastore.prepare(query);
+        return pq.asSingleEntity();
+
+    }
+
     public static Entity getUserFromId(String userId) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
