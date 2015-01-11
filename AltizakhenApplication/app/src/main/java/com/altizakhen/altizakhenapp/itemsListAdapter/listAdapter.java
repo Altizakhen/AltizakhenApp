@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.altizakhen.altizakhenapp.R;
+import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 
 import java.util.ArrayList;
 
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 public class listAdapter extends BaseAdapter{
 
     private Context context;
-    private ArrayList<listItem> Items;
+    private ArrayList<Item> Items;
     private int visibility;
 
-    public listAdapter(Context context, ArrayList<listItem> Items, int visibility){
+    public listAdapter(Context context, ArrayList<Item> Items, int visibility){
         this.context = context;
         this.Items = Items;
         this.visibility = visibility;
@@ -52,10 +53,11 @@ public class listAdapter extends BaseAdapter{
             convertView = mInflater.inflate(R.layout.list_item_view, null);
         }
         //find the note to work with
-        listItem currentItem = Items.get(position);
+        Item currentItem = Items.get(position);
         // Picture
         ImageView imageView = (ImageView) convertView.findViewById(R.id.item_icon);
         imageView.setImageResource(currentItem.getIconId());
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         // Content
         TextView contentText = (TextView) convertView.findViewById(R.id.Name);
         contentText.setText(currentItem.getName());
@@ -64,7 +66,7 @@ public class listAdapter extends BaseAdapter{
         authorText.setText(String.valueOf(currentItem.getPrice()));
         //Date
         TextView dateText = (TextView) convertView.findViewById(R.id.Date);
-        dateText.setText(currentItem.getAddDate());
+        dateText.setText(currentItem.getLocation());
 
         Button addToCart = (Button)convertView.findViewById(R.id.add_to_cart);
         if (visibility == 0){

@@ -14,6 +14,10 @@ public class Item {
     private int sellerId;
     private String sellerName;
     private String description;
+
+    //Manar
+    private String addDate;
+    private int iconId;
     private int countView;
 
     public Item(String id, String name, String location, int price, int sellerId, String sellerName, String description) {
@@ -77,5 +81,12 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAddDate() {
+        return addDate;
+    }
+    public int getIconId() {
+        return iconId;
     }
 }
