@@ -56,6 +56,7 @@ public class ApiHelper {
         protected void onPostExecute(ItemCollection itemCollection) {
             super.onPostExecute(itemCollection);
             if (itemCollection != null) {
+                MainActivity.items = itemCollection.getItems();
                 Item firstItem = itemCollection.getItems().get(0);
                 Toast.makeText(context, "first item: " + firstItem.toString(), Toast.LENGTH_LONG).show();
             }

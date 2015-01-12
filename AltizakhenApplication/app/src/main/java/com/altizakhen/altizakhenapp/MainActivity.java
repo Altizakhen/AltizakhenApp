@@ -30,9 +30,16 @@ import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 import com.altizakhen.altizakhenapp.model.NavDrawerItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends FragmentActivity {
+
+    static public ArrayList<Item> cart;
+    // item parameters
+    public static Item currentItemInView;
+
+
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -50,7 +57,8 @@ public class MainActivity extends FragmentActivity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
-    Item item;
+
+    static public List<Item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,10 @@ public class MainActivity extends FragmentActivity {
                     .commit();
         }
 
+        this.cart = new ArrayList<Item>();
+
+        ApiHelper api = new ApiHelper(this);
+         api.getAllItems();
         mTitle = mDrawerTitle = getTitle();
 
         // load slide menu items
@@ -77,19 +89,9 @@ public class MainActivity extends FragmentActivity {
 
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
-        // adding nav drawer items to array
-        // Home
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        // Find People
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        // Photos
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-/*        // Communities, Will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
-        // Pages
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        // What's hot, We  will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));*/
 
 
         // Recycle the typed array
@@ -176,6 +178,7 @@ public class MainActivity extends FragmentActivity {
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.cart:
+                intent = new Intent(this, cartView.class);
                 break;
             case R.id.new_item:
                 intent = new Intent(this, newItemFragment.class);

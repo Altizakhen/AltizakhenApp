@@ -17,10 +17,10 @@ public class pleaseLoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.please_login, container, false);
         Typeface type = Typeface.createFromAsset(getActivity().getAssets(),"djb.ttf");
-        TextView text = (TextView) rootView.findViewById(R.id.textView2);
+        TextView text = (TextView) rootView.findViewById(R.id.item_price);
         text.setTypeface(type);
 
-        Button b = (Button) rootView.findViewById(R.id.button2);
+        Button b = (Button) rootView.findViewById(R.id.delete_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

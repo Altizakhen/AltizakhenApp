@@ -9,7 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.altizakhen.altizakhenapp.MainActivity;
 import com.altizakhen.altizakhenapp.R;
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 
@@ -47,35 +49,51 @@ public class listAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        viewHolder holder;
+        View view;
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.list_item_view, null);
+            view = mInflater.inflate(R.layout.list_item_view, null);
+            //create new Holder
+            holder = new viewHolder();
+            holder.itemIcon = (ImageView) view.findViewById(R.id.item_photo);
+            holder.Name = (TextView) view.findViewById(R.id.Name);
+            holder.Price = (TextView) view.findViewById(R.id.Price);
+            holder.Location = (TextView) view.findViewById(R.id.Location);
+            view.setTag(holder);
+        } else {
+            view = convertView;
+            holder = (viewHolder) view.getTag();
         }
-        //find the note to work with
-        Item currentItem = Items.get(position);
-        // Picture
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.item_icon);
-        imageView.setImageResource(currentItem.getIconId());
-        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        // Content
-        TextView contentText = (TextView) convertView.findViewById(R.id.Name);
-        contentText.setText(currentItem.getName());
-        //Author
-        TextView authorText = (TextView) convertView.findViewById(R.id.Price);
-        authorText.setText(String.valueOf(currentItem.getPrice()));
-        //Date
-        TextView dateText = (TextView) convertView.findViewById(R.id.Date);
-        dateText.setText(currentItem.getLocation());
+        //find the item to work with
+        final Item currentItem = Items.get(position);
 
-        Button addToCart = (Button)convertView.findViewById(R.id.add_to_cart);
+        holder.itemIcon.setImageResource(currentItem.getIconId());
+        holder.itemIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        holder.Name.setText(currentItem.getName());
+        holder.Price.setText(String.valueOf(currentItem.getPrice()));
+        holder.Location.setText(currentItem.getLocation());
+
+        Button addToCart = (Button)view.findViewById(R.id.add_to_cart);
         if (visibility == 0){
             addToCart.setVisibility(View.VISIBLE);
         } else {
             addToCart.setVisibility(View.INVISIBLE);
         }
 
-        return convertView;
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.cart.contains(currentItem)){
+                    Toast.makeText(context, "The item is already in the cart", Toast.LENGTH_SHORT).show();
+                }else {
+                    MainActivity.cart.add(currentItem);
+                    Toast.makeText(context, "Item was added to Cart", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        return view;
     }
 
 }

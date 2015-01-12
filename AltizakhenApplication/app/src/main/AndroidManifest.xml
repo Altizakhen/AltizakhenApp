@@ -42,6 +42,7 @@
         <activity android:name=".Categories.Electronics"/>
         <activity android:name=".Categories.Furniture"/>
         <activity android:name=".newItemFragment"/>
+        <activity android:name=".cartView"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

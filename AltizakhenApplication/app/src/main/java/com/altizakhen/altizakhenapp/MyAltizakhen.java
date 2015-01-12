@@ -28,6 +28,11 @@ import java.util.Arrays;
 public class MyAltizakhen extends Fragment {
     private TextView userInfoTextView;
     private ListView list;
+    private int MyId;
+
+    public int getMyId() {
+        return MyId;
+    }
 
     public MyAltizakhen() {
     }
