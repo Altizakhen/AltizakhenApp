@@ -20,14 +20,19 @@ public class itemFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.item, container, false);
+//        ImageView im = (ImageView) rootView.findViewById(R.id.item_photo);
+//        Item item = MainActivity.currentItemInView;
+//        new ApiHelper(getActivity()).getImageOfItem(item.getId(), im);
+
 /*        Item item = MainActivity.currentItemInView;
         ((TextView) rootView.findViewById(R.id.item_name)).setText(item.getName());
-        ((TextView) rootView.findViewById(R.id.item_price)).setText(item.getPrice());
+        ((TextView) rootView.findViewById(R.id.item_price)).setText(item.getPrice().toString());
         ((TextView) rootView.findViewById(R.id.item_location)).setText(item.getLocation());
         ((TextView) rootView.findViewById(R.id.item_desc)).setText(item.getDescription());
         ((ImageView) rootView.findViewById(R.id.item_photo)).setImageResource(item.getIconId());
 
         if (MainActivity.userFacebookId == null){
+
             rootView.findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
             rootView.findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
         }

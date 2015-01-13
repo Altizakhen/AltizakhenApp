@@ -16,6 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
@@ -24,4 +30,5 @@ dependencies {
     compile files('src/main/libs/gson-2.3.1.jar')
     compile 'com.google.code.gson:gson:2.3.+'
     compile project(':facebook')
+    compile 'com.firebase:firebase-client-android:2.1.1+'
 }

@@ -22,6 +22,7 @@ import android.widget.ListView;
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.model.NavDrawerItem;
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Firebase.setAndroidContext(this);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

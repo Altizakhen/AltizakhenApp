@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.ItemApi;
@@ -13,6 +14,10 @@ import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.ItemCollection;
 import com.altizakhen.altizakhenapp.backend.userApi.UserApi;
 import com.altizakhen.altizakhenapp.backend.userApi.model.User;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
@@ -49,8 +54,8 @@ public class ApiHelper {
         task.execute();
     }
 
-    public void addItem(Item item) {
-        new AddItemTask().execute(item);
+    public void addItem(Item item, Bitmap itemImage) {
+        new AddItemTask(itemImage).execute(item);
     }
 
     public void addUser(String name, String facebookId) {
@@ -75,8 +80,10 @@ public class ApiHelper {
             super.onPostExecute(itemCollection);
             if (itemCollection != null) {
                 MainActivity.items = itemCollection.getItems();
-                Item firstItem = itemCollection.getItems().get(0);
-                Toast.makeText(context, "first item: " + firstItem.toString(), Toast.LENGTH_LONG).show();
+                if (MainActivity.items != null) {
+                    Item firstItem = itemCollection.getItems().get(0);
+                    Toast.makeText(context, "first item: " + firstItem.toString(), Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
@@ -106,11 +113,17 @@ public class ApiHelper {
     }
 
     public class AddItemTask extends AsyncTask<Item, Item, Item> {
+        private Bitmap itemImage;
+
+        public AddItemTask(Bitmap itemImage) {
+            this.itemImage = itemImage;
+        }
+
         @Override
         protected Item doInBackground(Item... items) {
             Item item = items[0];
             try {
-                itemApi.addItem(item.getName(), item.getLocation(), item.getCategoryName(), item.getPrice(), item.getUserId(), item.getDescription()).execute();
+                item = itemApi.addItem(item.getName(), item.getLocation(), item.getCategoryName(), item.getPrice(), item.getUserId(), item.getDescription()).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -121,6 +134,9 @@ public class ApiHelper {
         @Override
         protected void onPostExecute(Item item) {
             super.onPostExecute(item);
+            if (itemImage != null) {
+                addImageToItem(item.getId(), itemImage);
+            }
             Toast.makeText(context, "Added: " + item.toString(), Toast.LENGTH_LONG).show();
         }
     }
@@ -159,11 +175,38 @@ public class ApiHelper {
         }
     }
 
+
+    /**
+     * Helper functions below!
+     */
+
+    private void addImageToItem(String itemId, Bitmap bitmap) {
+        Firebase myFirebaseRef = new Firebase("https://altizaken.firebaseio.com/");
+        String ss = encodeTobase64(bitmap);
+        myFirebaseRef.child(itemId).setValue(ss);
+    }
+
+    public void getAndSetImageOfItem(String itemId, final ImageView imageview) {
+        Firebase myFirebaseRef = new Firebase("https://altizaken.firebaseio.com/");
+        myFirebaseRef.child(itemId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Bitmap bitmap = decodeBase64((String) snapshot.getValue());
+                imageview.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+            }
+        });
+
+    }
+
     public static String encodeTobase64(Bitmap image)
     {
         Bitmap immagex=image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        immagex.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         byte[] b = baos.toByteArray();
         String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
 
