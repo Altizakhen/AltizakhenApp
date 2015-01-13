@@ -27,11 +27,11 @@ public class itemFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.item_desc)).setText(item.getDescription());
         ((ImageView) rootView.findViewById(R.id.item_photo)).setImageResource(item.getIconId());
 
-        if (MainActivity.userId == null){
+        if (MainActivity.userFacebookId == null){
             rootView.findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
             rootView.findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
         }
-        else if(MainActivity.userId.equals(item.getSellerId())){
+        else if(MainActivity.userFacebookId.equals(item.getSellerId())){
             rootView.findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.contact_button).setVisibility(View.INVISIBLE);
         } else {

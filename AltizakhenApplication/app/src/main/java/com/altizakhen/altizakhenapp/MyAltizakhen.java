@@ -39,7 +39,6 @@ public class MyAltizakhen extends Fragment {
     private ArrayList<Item> list1;
     private ImageView img;
     private String userId;
-    private  Bitmap bitmap;
     private int MyId;
 
     public int getMyId() {
@@ -78,13 +77,14 @@ public class MyAltizakhen extends Fragment {
                         // Display the parsed user info
                         userInfoTextView.setText(buildUserInfoDisplay(user));
                         userId = user.getId();
+                        MainActivity.userFacebookId = user.getId();
                         new DownloadImageTask(img)
                                 .execute("https://graph.facebook.com/" + userId + "/picture?type=large");
-
+                        ApiHelper api = new ApiHelper(getActivity());
+                        api.addUser(user.getName(),user.getId());
                     }
                 }
             });
-
 
         } else if (state.isClosed()) {
 //            Log.i(TAG, "Logged out...");
@@ -92,7 +92,7 @@ public class MyAltizakhen extends Fragment {
             list.setVisibility(View.INVISIBLE);
             img.setVisibility(View.INVISIBLE);
             userId = null;
-            MainActivity.userId = null;
+            MainActivity.userFacebookId = null;
         }
     }
 
@@ -175,7 +175,6 @@ public class MyAltizakhen extends Fragment {
         // - no special permissions required
         userInfo.append(String.format("Hello %s,\n\n",
                 user.getName()));
-        MainActivity.userId = user.getId();
         return userInfo.toString();
     }
 

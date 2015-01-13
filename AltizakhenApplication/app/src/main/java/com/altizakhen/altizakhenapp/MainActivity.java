@@ -37,7 +37,9 @@ public class MainActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    static String userId;
+    static String userFacebookId;
+    static String userServerId;
+
 
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -169,7 +171,7 @@ public class MainActivity extends FragmentActivity {
         }
 
         Fragment fragment = null;
-        if(MainActivity.userId == null) {
+        if(MainActivity.userFacebookId == null) {
             fragment = new pleaseLoginFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()

@@ -101,6 +101,7 @@ public class ApiHelper {
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
             Toast.makeText(context, "Added User: id:" + user.getId(), Toast.LENGTH_LONG).show();
+            MainActivity.userServerId = user.getId();
         }
     }
 

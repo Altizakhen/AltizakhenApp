@@ -115,6 +115,10 @@ public class newItemFragment extends Activity {
             Toast.makeText(this, "Enter the pick up location", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(MainActivity.userServerId == null) {
+            Toast.makeText(this,"Loging-in isn't complete yet, try again later",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         ApiHelper api = new ApiHelper(this);
         Item item = new Item();
@@ -123,8 +127,7 @@ public class newItemFragment extends Activity {
         item.setLocation(location);
         item.setPrice(Integer.parseInt(price));
         item.setCategoryName("Books");
-        item.setUserId("ag5zfmFsdGl6YWtoZW4tMXIfCxIEVXNlciIET21hcgwLEgRVc2VyGICAgICAgIAKDA");
-        item.setSellerName("seller");
+        item.setUserId(MainActivity.userServerId);
 
         api.addItem(item);
         // TODO: should return the item's id
