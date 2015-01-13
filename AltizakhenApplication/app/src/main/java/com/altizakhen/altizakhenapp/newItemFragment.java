@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,7 @@ public class newItemFragment extends Activity {
         if (yourSelectedImage != null) {
             img.setImageBitmap(yourSelectedImage);
         }
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +117,10 @@ public class newItemFragment extends Activity {
             Toast.makeText(this, "Enter the pick up location", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (img.getDrawable() == null) {
+            Toast.makeText(this, "Enter image please", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ApiHelper api = new ApiHelper(this);
         Item item = new Item();
@@ -124,11 +130,9 @@ public class newItemFragment extends Activity {
         item.setPrice(Integer.parseInt(price));
         item.setCategoryName("Books");
         item.setUserId("ag5zfmFsdGl6YWtoZW4tMXIfCxIEVXNlciIET21hcgwLEgRVc2VyGICAgICAgIAKDA");
-        item.setSellerName("seller");
 
-        api.addItem(item);
+        api.addItem(item, ((BitmapDrawable)img.getDrawable()).getBitmap());
         // TODO: should return the item's id
     }
-
 
 }

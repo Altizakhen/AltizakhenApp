@@ -20,6 +20,10 @@ public class itemFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.item, container, false);
+//        ImageView im = (ImageView) rootView.findViewById(R.id.item_photo);
+//        Item item = MainActivity.currentItemInView;
+//        new ApiHelper(getActivity()).getImageOfItem(item.getId(), im);
+
 /*        Item item = MainActivity.currentItemInView;
         ((TextView) rootView.findViewById(R.id.item_name)).setText(item.getName());
         ((TextView) rootView.findViewById(R.id.item_price)).setText(item.getPrice());
