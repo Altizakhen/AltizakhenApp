@@ -115,6 +115,27 @@ public class ItemEndpoint {
         return items;
     }
 
+    @ApiMethod(name = "getUserItems", path="get_user_items")
+    public List<Item> getUserItems(@Named("userId") String userId) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Query.Filter itemFilter =
+                new Query.FilterPredicate("userId",
+                        Query.FilterOperator.EQUAL,
+                        userId);
+
+        Query query = new Query("Item").setFilter(itemFilter);
+        PreparedQuery pq = datastore.prepare(query);
+
+        List<Item> items = new ArrayList<Item>();
+        List<Entity> entities = pq.asList(FetchOptions.Builder.withDefaults());
+        for (Entity entity : entities) {
+            items.add(ItemEndpoint.entityToItem(entity));
+        }
+
+        return items;
+    }
+
     /* Helper functions */
     public static Item entityToItem(Entity entity) {
         Item item = new Item(KeyFactory.keyToString(entity.getKey()),

@@ -56,27 +56,6 @@ public class UserEndpoint {
         return entityToUser(item);
     }
 
-    @ApiMethod(name = "getUserItems")
-    public List<Item> getUserItems(@Named("userId") String userId) {
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
-        Query.Filter itemFilter =
-                new Query.FilterPredicate("userId",
-                        Query.FilterOperator.EQUAL,
-                        userId);
-
-        Query query = new Query("Item").setFilter(itemFilter);
-        PreparedQuery pq = datastore.prepare(query);
-
-        List<Item> items = new ArrayList<Item>();
-        List<Entity> entities = pq.asList(FetchOptions.Builder.withDefaults());
-        for (Entity entity : entities) {
-            items.add(ItemEndpoint.entityToItem(entity));
-        }
-
-        return items;
-    }
-
     @ApiMethod(name = "getAllUsers")
     public List<User> getAllUsers() {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

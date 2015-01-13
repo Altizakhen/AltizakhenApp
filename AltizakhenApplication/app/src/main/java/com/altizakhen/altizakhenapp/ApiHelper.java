@@ -23,6 +23,7 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
 * Created by personal on 1/2/15.
@@ -62,6 +63,9 @@ public class ApiHelper {
         new AddUserTask().execute(name, facebookId);
     }
 
+    public void getUserItems(String userId) {
+       new GetUserItemsTask().execute(userId);
+    }
 
     public class QueryItemsTask extends AsyncTask<Void, Void, ItemCollection> {
         @Override
@@ -175,6 +179,26 @@ public class ApiHelper {
         }
     }
 
+    public class GetUserItemsTask extends AsyncTask<String, String, List> {
+        @Override
+        protected List<Item> doInBackground(String... strings) {
+            String userId = strings[0];
+            ItemCollection items = null;
+            try {
+                items = itemApi.getUserItems(userId).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return items.getItems();
+        }
+
+        @Override
+        protected void onPostExecute(List list) {
+            super.onPostExecute(list);
+            // items has the items of the user.
+        }
+    }
 
     /**
      * Helper functions below!
