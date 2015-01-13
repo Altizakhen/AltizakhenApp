@@ -74,7 +74,7 @@ public class MainActivity extends FragmentActivity {
         this.cart = new ArrayList<Item>();
 
         ApiHelper api = new ApiHelper(this);
-         api.getAllItems();
+        api.getAllItems();
         mTitle = mDrawerTitle = getTitle();
 
         // load slide menu items

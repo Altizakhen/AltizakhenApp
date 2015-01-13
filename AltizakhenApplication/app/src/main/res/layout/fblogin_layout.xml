@@ -29,10 +29,10 @@
             android:visibility="invisible"
             android:layout_alignParentBottom="true"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:id="@+id/imageButton2"
+            android:id="@+id/profileImg"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:scaleType="fitCenter"
