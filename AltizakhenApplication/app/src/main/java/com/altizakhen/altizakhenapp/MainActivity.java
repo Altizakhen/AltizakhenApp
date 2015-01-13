@@ -1,17 +1,13 @@
 package com.altizakhen.altizakhenapp;
 
-import android.app.Activity;
-
-import android.app.ActionBar;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,10 +19,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.altizakhen.altizakhenapp.Categories.Electronics;
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
-
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.model.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -132,17 +126,6 @@ public class MainActivity extends FragmentActivity {
             // on first time display view for first nav item
             displayView(0);
         }
-
-//        ApiHelper api = new ApiHelper(this);
-//        Item exampleItem = new Item();
-//        exampleItem.setDescription("desc");
-//        exampleItem.setName("name");
-//        exampleItem.setLocation("loc");
-//        exampleItem.setPrice(11);
-//        exampleItem.setSellerId(11);
-//        exampleItem.setSellerName("seller");
-//
-//        api.addItem(exampleItem);
     }
 
     @Override

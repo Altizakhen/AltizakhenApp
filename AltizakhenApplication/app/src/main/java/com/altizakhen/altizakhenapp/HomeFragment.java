@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment{
         item1.setPrice(75);
         item1.setLocation("haifa");
         item1.setIconId(R.drawable.ic_bed);
-        item1.setSellerId(13);
+//        item1.setSellerId(13);
         item1.setSellerName("Manar");
         item1.setDescription("Brand New");
         list.add(item1);

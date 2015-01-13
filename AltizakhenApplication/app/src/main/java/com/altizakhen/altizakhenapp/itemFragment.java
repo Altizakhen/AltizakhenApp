@@ -1,18 +1,12 @@
 package com.altizakhen.altizakhenapp;
 
-;
-import android.app.Activity;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+;
 
 /**
  * Created by t-mansh on 1/12/2015.

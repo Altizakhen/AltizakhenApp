@@ -1,13 +1,13 @@
 
 package com.altizakhen.altizakhenapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -188,7 +187,7 @@ public class MyAltizakhen extends Fragment {
             item1.setPrice(75);
             item1.setLocation("haifa");
             item1.setIconId(R.drawable.ic_bed1);
-            item1.setSellerId(13);
+//            item1.setSellerId(13);
             item1.setSellerName("Manar");
             item1.setDescription("Brand New");
             list1.add(item1);

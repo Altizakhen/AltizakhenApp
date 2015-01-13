@@ -7,18 +7,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 
 import java.io.InputStream;
 
@@ -118,13 +115,15 @@ public class newItemFragment extends Activity {
             Toast.makeText(this, "Enter the pick up location", Toast.LENGTH_SHORT).show();
             return;
         }
+
         ApiHelper api = new ApiHelper(this);
         Item item = new Item();
         item.setDescription(description);
         item.setName(productName);
         item.setLocation(location);
         item.setPrice(Integer.parseInt(price));
-        item.setSellerId(11);
+        item.setCategoryName("Books");
+        item.setUserId("ag5zfmFsdGl6YWtoZW4tMXIfCxIEVXNlciIET21hcgwLEgRVc2VyGICAgICAgIAKDA");
         item.setSellerName("seller");
 
         api.addItem(item);

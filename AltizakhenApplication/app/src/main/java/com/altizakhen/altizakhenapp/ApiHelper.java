@@ -1,32 +1,44 @@
 package com.altizakhen.altizakhenapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.AltizakhenApi;
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.ItemCollection;
+import com.altizakhen.altizakhenapp.backend.itemApi.ItemApi;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.ItemCollection;
+import com.altizakhen.altizakhenapp.backend.userApi.UserApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Created by personal on 1/2/15.
- */
+* Created by personal on 1/2/15.
+*/
 public class ApiHelper {
 
-    private final AltizakhenApi service;
+    private final ItemApi itemApi;
+    private final UserApi userApi;
     private final Context context;
 
     public ApiHelper(Context context) {
         this.context = context;
-        // Initialize the service object that allows us to call API methods.
-        AltizakhenApi.Builder builder =
-                new AltizakhenApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
-        builder.setRootUrl("https://altizakhen-1.appspot.com/_ah/api");
-        service = builder.build();
+        // Initialize the itemApi object that allows us to call API methods.
+        ItemApi.Builder builderItem =
+                new ItemApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
+        builderItem.setRootUrl("https://altizakhen-1.appspot.com/_ah/api");
+        itemApi = builderItem.build();
+
+        UserApi.Builder builderUser =
+                new UserApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
+        builderUser.setRootUrl("https://altizakhen-1.appspot.com/_ah/api");
+        userApi = builderUser.build();
 
     }
 
@@ -45,7 +57,7 @@ public class ApiHelper {
         protected ItemCollection doInBackground(Void... voids) {
             ItemCollection items = null;
             try {
-                items = service.getAllItems().execute();
+                items = itemApi.getAllItems().execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -68,7 +80,7 @@ public class ApiHelper {
         protected Item doInBackground(Item... items) {
             Item item = items[0];
             try {
-                service.addItem(item.getName(), item.getLocation(), item.getPrice(), item.getSellerId(), item.getSellerName(), item.getDescription()).execute();
+                itemApi.addItem(item.getName(), item.getLocation(), item.getCategoryName(), item.getPrice(), item.getUserId(), item.getDescription()).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -88,7 +100,7 @@ public class ApiHelper {
         protected Item doInBackground(Item... items) {
             Item item = items[0];
             try {
-                service.deleteItem(item.getId());
+                itemApi.deleteItem(item.getId());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -101,5 +113,36 @@ public class ApiHelper {
             super.onPostExecute(item);
             Toast.makeText(context, "Deleted: " + item.toString(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    public class IncreaseViewCountTask extends AsyncTask<String, String, Void> {
+        @Override
+        protected Void doInBackground(String... items) {
+            String itemId = items[0];
+            try {
+                itemApi.increaseViewCount(itemId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    public static String encodeTobase64(Bitmap image)
+    {
+        Bitmap immagex=image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+        Log.e("LOOK", imageEncoded);
+        return imageEncoded;
+    }
+    public static Bitmap decodeBase64(String input)
+    {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 }

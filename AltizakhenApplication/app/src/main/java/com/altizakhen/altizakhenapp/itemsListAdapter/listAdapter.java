@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.MainActivity;
 import com.altizakhen.altizakhenapp.R;
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 
 import java.util.ArrayList;
 

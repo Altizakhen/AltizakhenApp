@@ -1,21 +1,16 @@
 package com.altizakhen.altizakhenapp.Categories;
 
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
-
-import com.altizakhen.altizakhenapp.MainActivity;
 import com.altizakhen.altizakhenapp.R;
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
-import com.altizakhen.altizakhenapp.categoriesFragment;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemFragment;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 
@@ -59,7 +54,7 @@ public class Books extends FragmentActivity {
         item1.setPrice(75);
         item1.setLocation("haifa");
         item1.setIconId(R.drawable.ic_bed);
-        item1.setSellerId(13);
+//        item1.setSellerId(13);
         item1.setSellerName("Manar");
         item1.setDescription("Brand New");
         items.add(item1);
@@ -69,7 +64,7 @@ public class Books extends FragmentActivity {
         item2.setPrice(75);
         item2.setLocation("haifa");
         item2.setIconId(R.drawable.ic_suns);
-        item2.setSellerId(13);
+//        item2.setSellerId(13);
         item2.setSellerName("Manar");
         item2.setDescription("Brand New");
         items.add(item2);

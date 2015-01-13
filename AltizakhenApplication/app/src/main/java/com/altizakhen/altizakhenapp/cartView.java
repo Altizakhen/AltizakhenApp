@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 
 import java.util.ArrayList;
