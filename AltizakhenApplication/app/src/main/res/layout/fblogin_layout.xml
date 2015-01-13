@@ -2,31 +2,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#ff45a7c0">
 
-    <TextView
-        android:id="@+id/userInfoTextView"
-        android:layout_width="336dp"
-        android:layout_height="95dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:visibility="invisible"
-        />
+        <com.facebook.widget.LoginButton
+            android:id="@+id/authButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+
+            />
+
+        <TextView
+            android:id="@+id/userInfoTextView"
+            android:layout_width="336dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="invisible"
+            android:layout_alignParentBottom="true"/>
+
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageButton2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_gravity="center_horizontal"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"/>
 
 
 </LinearLayout>

@@ -1,16 +1,23 @@
 
 package com.altizakhen.altizakhenapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
+import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -19,6 +26,14 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,6 +43,10 @@ import java.util.Arrays;
 public class MyAltizakhen extends Fragment {
     private TextView userInfoTextView;
     private ListView list;
+    private ArrayList<Item> list1;
+    private ImageButton img;
+    private String userId;
+    private  Bitmap bitmap;
 
     public MyAltizakhen() {
     }
@@ -51,6 +70,7 @@ public class MyAltizakhen extends Fragment {
 //            Log.i(TAG, "Logged in...");
             userInfoTextView.setVisibility(View.VISIBLE);
             list.setVisibility(View.VISIBLE);
+            img.setVisibility(View.VISIBLE);
             // Request user data and show the results
             Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
 
@@ -59,13 +79,32 @@ public class MyAltizakhen extends Fragment {
                     if (user != null) {
                         // Display the parsed user info
                         userInfoTextView.setText(buildUserInfoDisplay(user));
+                        userId = user.getId();
+//                        bitmap = getFacebookProfilePicture();
+//                        if (bitmap != null) {
+//                            img.setImageBitmap(bitmap);
+//                        }
                     }
                 }
             });
+
+//            new Request(
+//                    session,
+//                    "/me/picture",
+//                    null,
+//                    HttpMethod.GET,
+//                    new Request.Callback() {
+//                        public void onCompleted(Response response) {
+//                        response.
+//                        }
+//                    }
+//            ).executeAsync();
         } else if (state.isClosed()) {
 //            Log.i(TAG, "Logged out...");
             userInfoTextView.setVisibility(View.INVISIBLE);
             list.setVisibility(View.INVISIBLE);
+            img.setVisibility(View.INVISIBLE);
+            userId = null;
             MainActivity.userId = null;
         }
     }
@@ -126,11 +165,17 @@ public class MyAltizakhen extends Fragment {
         View rootView = inflater.inflate(R.layout.fblogin_layout, container,
                 false);
         list = (ListView) rootView.findViewById(R.id.listView);
-        list.setAdapter(new MyAdapter());
+        img = (ImageButton) rootView.findViewById(R.id.imageButton2);
+        list1 = new ArrayList<Item>();
+        populateList();
+        list.setAdapter(new listAdapter(getActivity(), list1, 1));
         userInfoTextView = (TextView) rootView.findViewById(R.id.userInfoTextView);
+        Typeface type = Typeface.createFromAsset(getActivity().getAssets(), "djb.ttf");
+        userInfoTextView.setTypeface(type);
+
         LoginButton authButton = (LoginButton) rootView
                 .findViewById(R.id.authButton);
-        authButton.setReadPermissions(Arrays.asList("public_profile","user_location"));
+        authButton.setReadPermissions(Arrays.asList("public_profile", "user_location"));
 
         authButton.setFragment(this);
         return rootView;
@@ -141,10 +186,10 @@ public class MyAltizakhen extends Fragment {
 
         // Example: typed access (name)
         // - no special permissions required
-        userInfo.append(String.format("Name: %s\n\n",
+        userInfo.append(String.format("Hello %s,\n\n",
                 user.getName()));
-        userInfo.append(String.format("Id: %s\n\n",
-                user.getId()));
+//        userInfo.append(String.format("Id: %s\n\n",
+//                user.getId()));
         MainActivity.userId = user.getId();
 
         // Example: partially typed access, to location field,
@@ -162,34 +207,90 @@ public class MyAltizakhen extends Fragment {
         return userInfo.toString();
     }
 
-    public class MyAdapter extends BaseAdapter {
-        public MyAdapter() {
+    private void populateList() {
 
-        }
-        @Override
-        public int getCount() {
-            return 10;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
+        for (int i = 0; i < 10; ++i) {
+            Item item1 = new Item();
+            item1.setName("bed");
+            item1.setPrice(75);
+            item1.setLocation("haifa");
+            item1.setIconId(R.drawable.ic_bed1);
+            item1.setSellerId(13);
+            item1.setSellerName("Manar");
+            item1.setDescription("Brand New");
+            list1.add(item1);
         }
 
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            if (view == null) {
-                LayoutInflater inflator = LayoutInflater.from(getActivity());
-                view = inflator.inflate(R.layout.profile_list , null);
+        /*
+        list.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_suns));
+        list.add(new listItem("Winter hat", 40, "2015.01.11", R.drawable.ic_hat));
+        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*/
 
-            }
-            return view;
-        }
+
     }
+
+    //    public class MyAdapter extends BaseAdapter {
+//        public MyAdapter() {
+//
+//        }
+//        @Override
+//        public int getCount() {
+//            return 10;
+//        }
+//
+//        @Override
+//        public Object getItem(int i) {
+//            return null;
+//        }
+//
+//        @Override
+//        public long getItemId(int i) {
+//            return i;
+//        }
+//
+//        @Override
+//        public View getView(int i, View view, ViewGroup viewGroup) {
+//            if (view == null) {
+//                LayoutInflater inflator = LayoutInflater.from(getActivity());
+//                view = inflator.inflate(R.layout.list_item_view , null);
+//
+//            }
+//            return view;
+//        }
+//    }
+//    public Bitmap getFacebookProfilePicture() {
+//        try {
+//            Toast.makeText(getActivity(), "https://graph.facebook.com/" + userId + "/picture?type=large",Toast.LENGTH_LONG).show();
+//            // return fetchImageUsinHttpClient("http://graph.facebook.com/" + userId + "/picture?type=large");
+////            URL imageURL = new URL("https://graph.facebook.com/" + userId + "/picture?type=large");
+////            Bitmap bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+//            return bitmap;
+//        } catch (Exception e) {
+//            Toast.makeText(getActivity() , "couldn't fetch image from facebook ",Toast.LENGTH_LONG).show();
+//            return null;
+//        }
+
+//    }
+
+
+//    private Bitmap fetchImageUsinHttpClient(String url) {
+//        try {
+//            HttpClient client = new DefaultHttpClient();
+//
+//            HttpGet request = new HttpGet(url);
+//            HttpResponse response = client.execute(request);
+//            HttpEntity body = response.getEntity();
+//            InputStream is = body.getContent();
+//            Bitmap myBitmap = BitmapFactory.decodeStream(is);
+//            return myBitmap;
+//
+//        } catch (Exception e) {
+//            Toast.makeText(getActivity(),
+//                    "there were a connection problem while downloading the image", Toast.LENGTH_SHORT)
+//                    .show();
+//        }
+//        return null;
+//    }
+
 }
 
