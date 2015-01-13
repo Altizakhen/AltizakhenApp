@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:onClick="onClickItem">
+    android:descendantFocusability="blocksDescendants">
         <TextView
             android:id="@+id/Price"
             android:layout_width="wrap_content"
@@ -11,17 +11,18 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageView
-            android:id="@+id/item_icon"
+            android:id="@+id/item_photo"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_launcher"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:focusable="false"/>
 
         <TextView
-            android:id="@+id/Date"
+            android:id="@+id/Location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Price"
@@ -35,7 +36,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="19dp"
-            android:layout_toRightOf="@+id/item_icon"
+            android:layout_toRightOf="@+id/item_photo"
             android:text="Content"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -46,6 +47,7 @@
         android:background="@android:drawable/ic_menu_add"
         android:layout_alignTop="@+id/Name"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:focusable="false"/>
 
 </RelativeLayout>

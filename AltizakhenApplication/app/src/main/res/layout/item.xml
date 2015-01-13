@@ -21,23 +21,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView2"
-        android:layout_alignTop="@+id/item_name"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="188dp"
-        android:layout_marginEnd="188dp"
-        android:layout_alignBottom="@+id/item_name"
+        android:id="@+id/item_price"
         android:textColor="#FF45A7C0"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_alignBaseline="@+id/item_location"
+        android:layout_alignBottom="@+id/item_location"
+        android:layout_toRightOf="@+id/item_name"
+        android:layout_toEndOf="@+id/item_name" />
 
     <ImageView
-        android:id="@+id/item_icon"
+        android:id="@+id/item_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/images"
         android:layout_marginTop="111dp"
-        android:layout_below="@+id/textView7"
+        android:layout_below="@+id/item_location"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -45,7 +43,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/textView7"
+        android:id="@+id/item_location"
         android:layout_below="@+id/item_name"
         android:layout_alignLeft="@+id/item_name"
         android:layout_alignStart="@+id/item_name"
@@ -60,17 +58,17 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Discreption"
         android:id="@+id/textView8"
-        android:layout_below="@+id/item_icon"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7"
+        android:layout_below="@+id/item_photo"
+        android:layout_alignLeft="@+id/item_location"
+        android:layout_alignStart="@+id/item_location"
         android:layout_marginTop="85dp"
         android:textColor="#FF45A7C0" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_above="@+id/textView2"
+        android:id="@+id/delete_button"
+        android:layout_above="@+id/item_price"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="@android:drawable/ic_delete"
@@ -80,13 +78,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contact Seller"
-        android:id="@+id/button3"
+        android:id="@+id/contact_button"
         android:layout_below="@+id/textView8"
         android:layout_marginTop="111dp"
         android:layout_alignLeft="@+id/textView8"
         android:layout_alignStart="@+id/textView8"
-        android:layout_toLeftOf="@+id/button2"
-        android:layout_toStartOf="@+id/button2"
+        android:layout_toLeftOf="@+id/delete_button"
+        android:layout_toStartOf="@+id/delete_button"
         android:background="#FF45A7C0"
         android:textColor="#ffffffff"
         android:textSize="30dp"
@@ -96,10 +94,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView9"
+        android:id="@+id/item_desc"
         android:layout_below="@+id/textView8"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3" />
+        android:layout_alignLeft="@+id/contact_button"
+        android:layout_alignStart="@+id/contact_button" />
 
 
 </RelativeLayout>

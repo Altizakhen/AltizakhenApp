@@ -47,6 +47,11 @@ public class MyAltizakhen extends Fragment {
     private ImageButton img;
     private String userId;
     private  Bitmap bitmap;
+    private int MyId;
+
+    public int getMyId() {
+        return MyId;
+    }
 
     public MyAltizakhen() {
     }

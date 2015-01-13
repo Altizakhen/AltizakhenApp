@@ -1,17 +1,18 @@
 package com.altizakhen.altizakhenapp;
 
 import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
-import com.altizakhen.altizakhenapp.itemsListAdapter.listItem;
 
 import java.util.ArrayList;
 
@@ -34,9 +35,21 @@ public class HomeFragment extends Fragment{
         itemList = (ListView) rootView.findViewById(R.id.listView4);
 
         list = new ArrayList<Item>();
+        /*for (Item t : MainActivity.items ){
+            list.add(t);
+        }*/
         populateList();
         listAdapter adapter = new listAdapter(getActivity(), list, 0);
         itemList.setAdapter(adapter);
+        itemList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                Fragment fragment = new itemFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+            }
+        });
         return rootView;
     }
 

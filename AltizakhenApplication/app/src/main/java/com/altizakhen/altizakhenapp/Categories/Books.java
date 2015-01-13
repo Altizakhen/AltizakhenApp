@@ -1,24 +1,30 @@
 package com.altizakhen.altizakhenapp.Categories;
 
-import android.app.Activity;
+
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
+
+import com.altizakhen.altizakhenapp.MainActivity;
 import com.altizakhen.altizakhenapp.R;
 import com.altizakhen.altizakhenapp.backend.altizakhenApi.model.Item;
+import com.altizakhen.altizakhenapp.categoriesFragment;
+import com.altizakhen.altizakhenapp.itemFragment;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
-import com.altizakhen.altizakhenapp.itemsListAdapter.listItem;
 
 import java.util.ArrayList;
 
 /**
  * Created by t-mansh on 1/7/2015.
  */
-public class Books extends Activity {
+public class Books extends FragmentActivity {
 
     private ArrayList<Item> items;
     private ListView itemList;
@@ -29,20 +35,51 @@ public class Books extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books);
-
         itemList = (ListView) findViewById(R.id.listView);
-
         items = new ArrayList<Item>();
         populateList();
         listAdapter adapter = new listAdapter(this, items, 0);
         itemList.setAdapter(adapter);
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //MainActivity.currentItemInView = (Item)adapterView.getSelectedItem();
+                Fragment fragment = new itemFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frame_container, fragment).commit();
+            }
+        });
     }
 
 
     private void populateList() {
 
-       /* items.add(new listItem("bed", 75, "2015.01.02", R.drawable.ic_cat));
-        items.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_cat));*/
+        Item item1 = new Item();
+        item1.setName("bed");
+        item1.setPrice(75);
+        item1.setLocation("haifa");
+        item1.setIconId(R.drawable.ic_bed);
+        item1.setSellerId(13);
+        item1.setSellerName("Manar");
+        item1.setDescription("Brand New");
+        items.add(item1);
+
+        Item item2 = new Item();
+        item2.setName("sun");
+        item2.setPrice(75);
+        item2.setLocation("haifa");
+        item2.setIconId(R.drawable.ic_suns);
+        item2.setSellerId(13);
+        item2.setSellerName("Manar");
+        item2.setDescription("Brand New");
+        items.add(item2);
+        /*
+        list.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_suns));
+        list.add(new listItem("Winter hat", 40, "2015.01.11", R.drawable.ic_hat));
+        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*/
+
+
     }
+
 
 }
