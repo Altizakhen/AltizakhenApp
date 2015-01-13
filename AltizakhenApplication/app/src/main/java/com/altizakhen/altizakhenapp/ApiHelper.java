@@ -12,6 +12,7 @@ import com.altizakhen.altizakhenapp.backend.itemApi.ItemApi;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.ItemCollection;
 import com.altizakhen.altizakhenapp.backend.userApi.UserApi;
+import com.altizakhen.altizakhenapp.backend.userApi.model.User;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
@@ -52,6 +53,11 @@ public class ApiHelper {
         new AddItemTask().execute(item);
     }
 
+    public void addUser(String name, String facebookId) {
+        new AddUserTask().execute(name, facebookId);
+    }
+
+
     public class QueryItemsTask extends AsyncTask<Void, Void, ItemCollection> {
         @Override
         protected ItemCollection doInBackground(Void... voids) {
@@ -72,6 +78,29 @@ public class ApiHelper {
                 Item firstItem = itemCollection.getItems().get(0);
                 Toast.makeText(context, "first item: " + firstItem.toString(), Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    public class AddUserTask extends AsyncTask<String, String, User> {
+        @Override
+        protected User doInBackground(String... strings) {
+            String userName = strings[0];
+            String facebookId = strings[1];
+            User user = null;
+
+            try {
+                user = userApi.addUser(userName, facebookId).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return user;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
+            Toast.makeText(context, "Added User: id:" + user.getId(), Toast.LENGTH_LONG).show();
         }
     }
 
