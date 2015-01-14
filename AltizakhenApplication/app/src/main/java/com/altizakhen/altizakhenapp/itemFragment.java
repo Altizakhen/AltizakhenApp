@@ -2,6 +2,7 @@ package com.altizakhen.altizakhenapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,36 +15,35 @@ import android.widget.TextView;
 /**
  * Created by t-mansh on 1/12/2015.
  */
-public class itemFragment extends Fragment {
+public class itemFragment extends FragmentActivity {
 
     public itemFragment(){}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.item, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.item);
         Item item = MainActivity.currentItemInView;
 //        ImageView im = (ImageView) rootView.findViewById(R.id.item_photo);
 //        new ApiHelper(getActivity()).getImageOfItem(item.getId(), im);
 
 
-        ((TextView) rootView.findViewById(R.id.item_name)).setText(item.getName());
-        ((TextView) rootView.findViewById(R.id.item_price)).setText(item.getPrice().toString());
-        ((TextView) rootView.findViewById(R.id.item_location)).setText(item.getLocation());
-        ((TextView) rootView.findViewById(R.id.item_desc)).setText(item.getDescription());
-        ((ImageView) rootView.findViewById(R.id.item_photo)).setImageResource(item.getIconId());
+        ((TextView) findViewById(R.id.item_name)).setText(item.getName());
+        ((TextView) findViewById(R.id.item_price)).setText(item.getPrice().toString());
+        ((TextView) findViewById(R.id.item_location)).setText(item.getLocation());
+        ((TextView) findViewById(R.id.item_desc)).setText(item.getDescription());
+        ((ImageView) findViewById(R.id.item_photo)).setImageResource(item.getIconId());
 
-        Button removeButton = (Button) rootView.findViewById(R.id.delete_button);
+        Button removeButton = (Button) findViewById(R.id.delete_button);
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApiHelper api = new ApiHelper(getActivity());
+                ApiHelper api = new ApiHelper(getApplication());
                 // TODO: delete the item
             }
         });
 
-        Button contact = (Button) rootView.findViewById(R.id.contact_button);
+        Button contact = (Button) findViewById(R.id.contact_button);
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,20 +51,19 @@ public class itemFragment extends Fragment {
             }
         });
 
-        if (MainActivity.userServerId == "null"){
+        if (MainActivity.userServerId.isEmpty()){
 
-            rootView.findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
-            rootView.findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
+            findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
         }
         else if(MainActivity.userServerId.equals(item.getUserId())){
-            rootView.findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
-            rootView.findViewById(R.id.contact_button).setVisibility(View.INVISIBLE);
+           findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.contact_button).setVisibility(View.INVISIBLE);
         } else {
-            rootView.findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
-            rootView.findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
+            findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
 
         }
-        return rootView;
     }
 
 }

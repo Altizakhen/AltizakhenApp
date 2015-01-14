@@ -1,5 +1,6 @@
 package com.altizakhen.altizakhenapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,9 +46,11 @@ public class HomeFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
-                Fragment fragment = new itemFragment();
+                /*Fragment fragment = new itemFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();*/
+                Intent intent = new Intent(getActivity(), itemFragment.class);
+                startActivity(intent);
             }
         });
         return rootView;

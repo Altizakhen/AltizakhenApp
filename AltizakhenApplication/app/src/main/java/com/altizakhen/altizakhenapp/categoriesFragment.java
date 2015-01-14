@@ -43,23 +43,26 @@ public class categoriesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = null;
+                String catName;
                 switch (position){
                     case 0:
                         intent = new Intent(getActivity(), Books.class);
+                        catName = "Books";
                         break;
                     case 1:
                         intent = new Intent(getActivity(), Electronics.class);
+                        catName = "Electronics";
                         break;
-                    case 3:
+                    case 2:
                         intent = new Intent(getActivity(), Furniture.class);
-
+                        catName = "Furniture";
                         break;
+                    default:
+                        catName = "Books";
                 }
-                /*FragmentManager fragmentManager = ((MainActivity)getActivity()).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container, fragment).commit();*/
+                ApiHelper api = new ApiHelper(getActivity());
+                api.getItemsInCategory(catName,intent);
 
-                startActivity(intent);
 
             }
         });
@@ -70,8 +73,8 @@ public class categoriesFragment extends Fragment {
     private void populateArray() {
         items = new ArrayList<Integer>();
         items.add(R.drawable.ic_books);
-        items.add(R.drawable.ic_furniture);
         items.add(R.drawable.ic_electonics);
+        items.add(R.drawable.ic_furniture);
     }
 
 }

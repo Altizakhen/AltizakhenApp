@@ -10,12 +10,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.altizakhen.altizakhenapp.Categories.Books;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 
 import java.io.InputStream;
@@ -27,6 +31,8 @@ import java.io.InputStream;
 public class newItemFragment extends Activity {
     ImageButton img;
     static Bitmap yourSelectedImage;
+    int category;
+
     public newItemFragment() {
     }
 
@@ -52,6 +58,25 @@ public class newItemFragment extends Activity {
             @Override
             public void onClick(View view) {
                 onClickHandler();
+            }
+        });
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.planets_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                category = 0;
+
             }
         });
 
@@ -109,6 +134,10 @@ public class newItemFragment extends Activity {
             Toast.makeText(this, "Enter the product's Name", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (category == 0){
+            Toast.makeText(this, "Select a category first", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (price.isEmpty()) {
             Toast.makeText(this, "Enter the product's Price", Toast.LENGTH_SHORT).show();
             return;
@@ -133,12 +162,21 @@ public class newItemFragment extends Activity {
         item.setName(productName);
         item.setLocation(location);
         item.setPrice(Integer.parseInt(price));
-        item.setCategoryName("Books");
         item.setUserId(MainActivity.userServerId);
 
-
+        switch (category){
+            case 1:
+                item.setCategoryName("Books");
+                break;
+            case 2:
+                item.setCategoryName("Furniture");
+                break;
+            case 3:
+                item.setCategoryName("Electronics");
+                break;
+        }
         api.addItem(item, ((BitmapDrawable)img.getDrawable()).getBitmap());
-        // TODO: should return the item's id
+        this.finish();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.altizakhen.altizakhenapp.Categories;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.altizakhen.altizakhenapp.MainActivity;
 import com.altizakhen.altizakhenapp.R;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemFragment;
@@ -22,7 +24,6 @@ import java.util.ArrayList;
  * Created by t-mansh on 1/8/2015.
  */
 public class Furniture extends FragmentActivity {
-    private ArrayList<Item> items;
     private ListView itemList;
 
     public Furniture(){}
@@ -32,30 +33,29 @@ public class Furniture extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.furniture);
         itemList = (ListView) findViewById(R.id.furniture_list);
-        items = new ArrayList<Item>();
-        populateList();
-        listAdapter adapter = new listAdapter(this, items, 0);
+/*        items = new ArrayList<Item>();
+        populateList();*/
+        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //MainActivity.currentItemInView = (Item)adapterView.getSelectedItem();
-                Fragment fragment = new itemFragment();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.frame_container, fragment).commit();
+                MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                Intent intent = new Intent(getApplication(), itemFragment.class);
+                startActivity(intent);
             }
         });
 
     }
 
-    private void populateList() {
+/*    private void populateList() {
 
         Item item1 = new Item();
         item1.setName("bed");
         item1.setPrice(75);
         item1.setLocation("haifa");
         item1.setIconId(R.drawable.ic_bed);
-//        item1.setSellerId(13);
+        item1.setUserId("13");
         item1.setSellerName("Manar");
         item1.setDescription("Brand New");
         items.add(item1);
@@ -65,17 +65,17 @@ public class Furniture extends FragmentActivity {
         item2.setPrice(75);
         item2.setLocation("haifa");
         item2.setIconId(R.drawable.ic_suns);
-//        item2.setSellerId(13);
+        item1.setUserId("13");
         item2.setSellerName("Manar");
         item2.setDescription("Brand New");
         items.add(item2);
-        /*
+        *//*
         list.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_suns));
         list.add(new listItem("Winter hat", 40, "2015.01.11", R.drawable.ic_hat));
-        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*/
+        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*//*
 
 
-    }
+    }*/
 
 
 }

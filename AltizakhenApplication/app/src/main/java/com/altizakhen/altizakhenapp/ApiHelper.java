@@ -1,6 +1,7 @@
 package com.altizakhen.altizakhenapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,6 +55,39 @@ public class ApiHelper {
     public void getAllItems() {
         QueryItemsTask task = new QueryItemsTask();
         task.execute();
+    }
+
+    public void getItemsInCategory(String categoryName, Intent intent) {
+        new GetItemsInCategory(intent).execute(categoryName);
+    }
+
+    public class GetItemsInCategory extends AsyncTask<String, String, List<Item> > {
+        Intent intent;
+        public GetItemsInCategory(Intent i) {
+            intent = i;
+        }
+        @Override
+        protected List<Item> doInBackground(String... strings) {
+            String categoryName = strings[0];
+            ItemCollection items = null;
+            try {
+                items = itemApi.getItemsInCategory(categoryName).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return items == null ? null : items.getItems();
+        }
+
+        @Override
+        protected void onPostExecute(List<Item> list) {
+            super.onPostExecute(list);
+            MainActivity.catItems = new ArrayList<Item>();
+            for (Item i : list){
+                MainActivity.catItems.add(i);
+            }
+            context.startActivity(intent);
+
+        }
     }
 
     public void addItem(Item item, Bitmap itemImage) {

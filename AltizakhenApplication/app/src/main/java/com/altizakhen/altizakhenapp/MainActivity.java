@@ -41,6 +41,8 @@ public class MainActivity extends FragmentActivity {
     static String userFacebookId;
     static String userServerId = "13";
 
+    static public ArrayList<Item> catItems;
+
 
     // nav drawer title
     private CharSequence mDrawerTitle;
