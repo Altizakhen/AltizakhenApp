@@ -42,6 +42,7 @@
         <activity android:name=".Categories.Electronics"/>
         <activity android:name=".Categories.Furniture"/>
         <activity android:name=".newItemFragment"/>
+        <activity android:name=".chat.ChatActivity"/>
         <activity android:name=".cartView"/>
         <activity android:name=".itemFragment"/>
         <meta-data

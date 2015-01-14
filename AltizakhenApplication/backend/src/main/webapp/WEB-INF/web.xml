@@ -6,7 +6,8 @@
         <init-param>
             <param-name>services</param-name>
             <param-value>com.altizakhen.altizakhenapp.backend.UserEndpoint,
-                com.altizakhen.altizakhenapp.backend.ItemEndpoint</param-value>
+                com.altizakhen.altizakhenapp.backend.ItemEndpoint,
+                com.altizakhen.altizakhenapp.backend.FirebaseChatEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

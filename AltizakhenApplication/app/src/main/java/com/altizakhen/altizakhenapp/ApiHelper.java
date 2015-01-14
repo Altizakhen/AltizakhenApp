@@ -14,6 +14,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.altizakhen.altizakhenapp.backend.firebaseChatApi.FirebaseChatApi;
+import com.altizakhen.altizakhenapp.backend.firebaseChatApi.model.FirebaseChat;
 import com.altizakhen.altizakhenapp.backend.itemApi.ItemApi;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.ItemCollection;
@@ -38,6 +40,7 @@ public class ApiHelper {
 
     private final ItemApi itemApi;
     private final UserApi userApi;
+    private final FirebaseChatApi firebaseChatApi;
     private final Context context;
 
     public ApiHelper(Context context) {
@@ -53,6 +56,10 @@ public class ApiHelper {
         builderUser.setRootUrl("https://altizakhen-1.appspot.com/_ah/api");
         userApi = builderUser.build();
 
+        FirebaseChatApi.Builder builderFirebase =
+                new FirebaseChatApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
+        builderUser.setRootUrl("https://altizakhen-1.appspot.com/_ah/api");
+        firebaseChatApi = builderFirebase.build();
     }
 
     // An example of how to use this API. Shows the first item in Toast.
@@ -104,6 +111,10 @@ public class ApiHelper {
 
     public void getUserItems(String userId) {
        new GetUserItemsTask().execute(userId);
+    }
+
+    public void generateFirebaseChat(String userId1, String userId2, FirebaseChatCallback callback) {
+        new GenerateFirebaseChatId(callback).execute(userId1, userId2);
     }
 
     public class QueryItemsTask extends AsyncTask<Void, Void, ItemCollection> {
@@ -240,6 +251,37 @@ public class ApiHelper {
             super.onPostExecute(list);
             // items has the items of the user.
 
+        }
+    }
+
+    public interface FirebaseChatCallback {
+        public void onFirebaseChat(FirebaseChat fbchat);
+    }
+
+    public class GenerateFirebaseChatId extends AsyncTask<String, String, FirebaseChat> {
+        private FirebaseChatCallback callback;
+        public GenerateFirebaseChatId(FirebaseChatCallback callback) {
+            this.callback = callback;
+        }
+        @Override
+        protected FirebaseChat doInBackground(String... strings) {
+            String userId1 = strings[0];
+            String userId2 = strings[0];
+            FirebaseChat fbchat = null;
+            try {
+                fbchat = firebaseChatApi.getFirebaseChat(userId1, userId2).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return fbchat;
+        }
+
+        @Override
+        protected void onPostExecute(FirebaseChat fbchat) {
+            super.onPostExecute(fbchat);
+            // items has the items of the user.
+            callback.onFirebaseChat(fbchat);
         }
     }
 

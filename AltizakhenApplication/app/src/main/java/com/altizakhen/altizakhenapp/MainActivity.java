@@ -43,7 +43,7 @@ public class MainActivity extends FragmentActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     static String userFacebookId;
-    static String userServerId = "13";
+    public static String userServerId = "13";
 
     static public ArrayList<Item> catItems;
 
