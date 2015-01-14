@@ -41,7 +41,7 @@ public class MainActivity extends FragmentActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     static String userFacebookId;
-    static String userServerId;
+    static String userServerId = "13";
 
 
     // nav drawer title

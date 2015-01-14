@@ -61,28 +61,11 @@ public class HomeFragment extends Fragment{
         title.setTypeface(type);
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         itemList = null;
 
     }
-//    private void populateList() {
-//
-//        Item item1 = new Item();
-//        item1.setName("bed");
-//        item1.setPrice(75);
-//        item1.setLocation("haifa");
-//        item1.setIconId(R.drawable.ic_bed);
-////        item1.setSellerId(13);
-//        item1.setSellerName("Manar");
-//        item1.setDescription("Brand New");
-//        list.add(item1);
-//        /*
-//        list.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_suns));
-//        list.add(new listItem("Winter hat", 40, "2015.01.11", R.drawable.ic_hat));
-//        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*/
-//
-//
-//    }
 }
