@@ -34,6 +34,8 @@ public class MainActivity extends FragmentActivity {
     // item parameters
     public static Item currentItemInView;
 
+    private Fragment[] fragments;
+
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -70,6 +72,11 @@ public class MainActivity extends FragmentActivity {
                     .add(new PlaceholderFragment(), " ")
                     .commit();
         }
+
+        fragments = new Fragment[3];
+        fragments[0] = new HomeFragment();
+        fragments[1] = new categoriesFragment();
+        fragments[2] = new MyAltizakhen();
 
         this.cart = new ArrayList<Item>();
 
@@ -206,13 +213,20 @@ public class MainActivity extends FragmentActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new HomeFragment();
+//                fragment = new HomeFragment();
+                if(MainActivity.items == null) {
+                    fragment = null;
+                }else {
+                    fragment = fragments[0];
+                }
+
                 break;
             case 1:
-                fragment = new categoriesFragment();
+
+                fragment = fragments[1];
                 break;
             case 2:
-                fragment = new MyAltizakhen();
+                fragment = fragments[2];
                 break;
   /*          case 3:
                 fragment = new CommunityFragment();
@@ -287,41 +301,3 @@ public class MainActivity extends FragmentActivity {
 
 
 
-/*public class MainActivity extends Activity {
-
-
-   *//* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-*//*
-
-
-
-}*/

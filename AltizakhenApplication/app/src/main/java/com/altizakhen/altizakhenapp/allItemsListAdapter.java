@@ -1,4 +1,4 @@
-package com.altizakhen.altizakhenapp.itemsListAdapter;
+package com.altizakhen.altizakhenapp;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,18 +13,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.altizakhen.altizakhenapp.ImageDownloader;
-import com.altizakhen.altizakhenapp.MainActivity;
-import com.altizakhen.altizakhenapp.R;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
+import com.altizakhen.altizakhenapp.itemsListAdapter.viewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by t-mansh on 1/7/2015.
+ * Created by משתמש on 15/01/14.
  */
-public class listAdapter extends BaseAdapter{
+public class allItemsListAdapter extends BaseAdapter {
     private Context context;
     private List<Item> Items;
     private int visibility;
@@ -32,7 +30,7 @@ public class listAdapter extends BaseAdapter{
     private boolean[] isImageRequestSent;
     ListView list;
 
-    public listAdapter(Context context, List<Item> Items, int visibility, ListView lst){
+    public allItemsListAdapter(Context context, List<Item> Items, int visibility, ListView lst){
         this.context = context;
         this.Items = Items;
         this.visibility = visibility;
@@ -119,6 +117,5 @@ public class listAdapter extends BaseAdapter{
 
         return view;
     }
-
 
 }

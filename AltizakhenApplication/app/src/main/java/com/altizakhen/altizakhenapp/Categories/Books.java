@@ -33,11 +33,7 @@ public class Books extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books);
         itemList = (ListView) findViewById(R.id.listView);
-
-        //populateList();
-
-
-        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0);
+        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0, itemList);
         itemList.setAdapter(adapter);
 
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
