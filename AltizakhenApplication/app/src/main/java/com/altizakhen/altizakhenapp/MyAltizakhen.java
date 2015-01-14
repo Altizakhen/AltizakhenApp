@@ -155,7 +155,7 @@ public class MyAltizakhen extends Fragment {
         img = (ImageView) rootView.findViewById(R.id.profileImg);
         list1 = new ArrayList<Item>();
         populateList();
-        list.setAdapter(new listAdapter(getActivity(), list1, 1));
+        list.setAdapter(new myAltizakhenList(getActivity(), list1, 1));
         userInfoTextView = (TextView) rootView.findViewById(R.id.userInfoTextView);
         Typeface type = Typeface.createFromAsset(getActivity().getAssets(), "djb.ttf");
         userInfoTextView.setTypeface(type);

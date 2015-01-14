@@ -25,7 +25,7 @@ public class cartView extends Activity{
         CustomizeFont();
         cartView = (ListView) findViewById(R.id.cartList);
 
-        listAdapter adapter = new listAdapter(this, MainActivity.cart, 1);
+        listAdapter adapter = new listAdapter(this, MainActivity.cart, 1,cartView);
         cartView.setAdapter(adapter);
     }
 

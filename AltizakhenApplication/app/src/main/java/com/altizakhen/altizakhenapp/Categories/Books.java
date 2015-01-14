@@ -33,7 +33,7 @@ public class Books extends FragmentActivity {
         itemList = (ListView) findViewById(R.id.listView);
         items = new ArrayList<Item>();
         populateList();
-        listAdapter adapter = new listAdapter(this, items, 0);
+        listAdapter adapter = new listAdapter(this, items, 0,itemList);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

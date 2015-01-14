@@ -1,9 +1,13 @@
 package com.altizakhen.altizakhenapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
@@ -87,6 +91,11 @@ public class ApiHelper {
                 if (MainActivity.items != null) {
                     Item firstItem = itemCollection.getItems().get(0);
                     Toast.makeText(context, "first item: " + firstItem.toString(), Toast.LENGTH_LONG).show();
+                    Fragment fragment = new HomeFragment();
+                    FragmentManager fragmentManager =
+                            ((FragmentActivity)context).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container, fragment).commit();
                 }
             }
         }
@@ -113,6 +122,7 @@ public class ApiHelper {
             super.onPostExecute(user);
             Toast.makeText(context, "Added User: id:" + user.getId(), Toast.LENGTH_LONG).show();
             MainActivity.userServerId = user.getId();
+
         }
     }
 
@@ -180,6 +190,7 @@ public class ApiHelper {
     }
 
     public class GetUserItemsTask extends AsyncTask<String, String, List> {
+
         @Override
         protected List<Item> doInBackground(String... strings) {
             String userId = strings[0];
@@ -197,6 +208,7 @@ public class ApiHelper {
         protected void onPostExecute(List list) {
             super.onPostExecute(list);
             // items has the items of the user.
+
         }
     }
 

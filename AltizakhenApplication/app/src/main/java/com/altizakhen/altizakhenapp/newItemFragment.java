@@ -88,6 +88,7 @@ public class newItemFragment extends Activity {
                     try {
                         InputStream imageStream = getContentResolver().openInputStream(selectedImage);
                         yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                        yourSelectedImage = Bitmap.createScaledBitmap(yourSelectedImage, 200, 200, false);
                         img.setImageBitmap(yourSelectedImage);
 
                     } catch (Exception e) {

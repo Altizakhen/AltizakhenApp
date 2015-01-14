@@ -24,6 +24,7 @@ public class HomeFragment extends Fragment{
     ArrayList<Item> list;
     private ListView itemList;
 
+
     public HomeFragment(){}
 
     @Override
@@ -38,8 +39,8 @@ public class HomeFragment extends Fragment{
         /*for (Item t : MainActivity.items ){
             list.add(t);
         }*/
-        populateList();
-        listAdapter adapter = new listAdapter(getActivity(), list, 0);
+//        populateList();
+        allItemsListAdapter adapter = new allItemsListAdapter(getActivity(), MainActivity.items, 0, itemList);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
@@ -60,23 +61,28 @@ public class HomeFragment extends Fragment{
         title.setTypeface(type);
     }
 
-
-    private void populateList() {
-
-        Item item1 = new Item();
-        item1.setName("bed");
-        item1.setPrice(75);
-        item1.setLocation("haifa");
-        item1.setIconId(R.drawable.ic_bed);
-//        item1.setSellerId(13);
-        item1.setSellerName("Manar");
-        item1.setDescription("Brand New");
-        list.add(item1);
-        /*
-        list.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_suns));
-        list.add(new listItem("Winter hat", 40, "2015.01.11", R.drawable.ic_hat));
-        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*/
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        itemList = null;
 
     }
+//    private void populateList() {
+//
+//        Item item1 = new Item();
+//        item1.setName("bed");
+//        item1.setPrice(75);
+//        item1.setLocation("haifa");
+//        item1.setIconId(R.drawable.ic_bed);
+////        item1.setSellerId(13);
+//        item1.setSellerName("Manar");
+//        item1.setDescription("Brand New");
+//        list.add(item1);
+//        /*
+//        list.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_suns));
+//        list.add(new listItem("Winter hat", 40, "2015.01.11", R.drawable.ic_hat));
+//        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*/
+//
+//
+//    }
 }
