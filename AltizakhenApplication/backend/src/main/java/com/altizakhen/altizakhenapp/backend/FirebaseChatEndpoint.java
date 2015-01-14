@@ -45,6 +45,19 @@ public class FirebaseChatEndpoint {
         return fbchat;
     }
 
+    @ApiMethod(name = "getUserChats", path = "get_user_chats")
+    public List<FirebaseChat> getUserChats(@Named("userId") String userId) {
+        List<FirebaseChat> list = new ArrayList<FirebaseChat>();
+
+        for (FirebaseChat chat : chats) {
+            if (chat.getUserId1().equals(userId) || chat.getUserId2().equals(userId)) {
+                list.add(chat);
+            }
+        }
+
+        return list;
+    }
+
     @ApiMethod(name = "getAll", path = "get_all")
     public List<FirebaseChat> getAll() {
         return chats;
