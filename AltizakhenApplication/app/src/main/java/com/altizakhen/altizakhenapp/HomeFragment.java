@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment{
         item1.setPrice(75);
         item1.setLocation("haifa");
         item1.setIconId(R.drawable.ic_bed);
-//        item1.setSellerId(13);
+        item1.setUserId("14");
         item1.setSellerName("Manar");
         item1.setDescription("Brand New");
         list.add(item1);
