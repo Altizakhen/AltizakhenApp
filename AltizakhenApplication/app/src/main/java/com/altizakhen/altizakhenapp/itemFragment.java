@@ -32,7 +32,7 @@ public class itemFragment extends FragmentActivity {
         ((TextView) findViewById(R.id.item_price)).setText(item.getPrice().toString());
         ((TextView) findViewById(R.id.item_location)).setText(item.getLocation());
         ((TextView) findViewById(R.id.item_desc)).setText(item.getDescription());
-        ((ImageView) findViewById(R.id.item_photo)).setImageResource(item.getIconId());
+        ((ImageView) findViewById(R.id.item_photo)).setImageBitmap(MainActivity.currentItemBitmap);
 
         Button removeButton = (Button) findViewById(R.id.delete_button);
         removeButton.setOnClickListener(new View.OnClickListener() {

@@ -3,6 +3,7 @@ package com.altizakhen.altizakhenapp;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ public class MainActivity extends FragmentActivity {
     static public ArrayList<Item> cart;
     // item parameters
     public static Item currentItemInView;
+    public static Bitmap currentItemBitmap;
 
     private Fragment[] fragments;
 

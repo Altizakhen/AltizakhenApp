@@ -40,41 +40,11 @@ public class Books extends FragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                MainActivity.currentItemBitmap = ((listAdapter)adapterView.getAdapter()).getImage(i);
                 Intent intent = new Intent(getApplication(), itemFragment.class);
                 startActivity(intent);
             }
         });
     }
-
-
-/*    private void populateList() {
-
-        Item item1 = new Item();
-        item1.setName("bed");
-        item1.setPrice(75);
-        item1.setLocation("haifa");
-        item1.setIconId(R.drawable.ic_bed);
-        item1.setUserId("13");
-        item1.setSellerName("Manar");
-        item1.setDescription("Brand New");
-        items.add(item1);
-
-        Item item2 = new Item();
-        item2.setName("sun");
-        item2.setPrice(75);
-        item2.setLocation("haifa");
-        item2.setIconId(R.drawable.ic_suns);
-        item1.setUserId("13");
-        item2.setSellerName("Manar");
-        item2.setDescription("Brand New");
-        items.add(item2);
-        *//*
-        list.add(new listItem("A thousand Splendid Suns", 100, "2015.01.02", R.drawable.ic_suns));
-        list.add(new listItem("Winter hat", 40, "2015.01.11", R.drawable.ic_hat));
-        list.add(new listItem("necklace", 140, "2014.10.02", R.drawable.ic_necklace));*//*
-
-
-    }*/
-
 
 }

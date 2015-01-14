@@ -53,6 +53,9 @@ public class listAdapter extends BaseAdapter{
     public Object getItem(int position) {
         return Items.get(position);
     }
+    public Bitmap getImage(int pos) {
+        return images[pos];
+    }
 
     @Override
     public long getItemId(int position) {

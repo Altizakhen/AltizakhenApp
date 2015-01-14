@@ -37,19 +37,13 @@ public class HomeFragment extends Fragment{
         itemList = (ListView) rootView.findViewById(R.id.listView4);
 
         list = new ArrayList<Item>();
-        /*for (Item t : MainActivity.items ){
-            list.add(t);
-        }*/
-//        populateList();
-        allItemsListAdapter adapter = new allItemsListAdapter(getActivity(), MainActivity.items, 0, itemList);
+        listAdapter adapter = new listAdapter(getActivity(), MainActivity.items, 0, itemList);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
-                /*Fragment fragment = new itemFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();*/
+                MainActivity.currentItemBitmap = ((listAdapter)adapterView.getAdapter()).getImage(i);
                 Intent intent = new Intent(getActivity(), itemFragment.class);
                 startActivity(intent);
             }

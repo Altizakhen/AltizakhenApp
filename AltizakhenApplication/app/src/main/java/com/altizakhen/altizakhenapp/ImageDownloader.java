@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -34,8 +33,6 @@ public class ImageDownloader {
         myFirebaseRef.child(itemId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Toast.makeText(context,"download image is done",Toast.LENGTH_LONG).show();
-
                 Bitmap b = decodeBase64((String) snapshot.getValue());
                 imagesArray[index]= Bitmap.createScaledBitmap(b, 200, 200, false);
                 list.invalidateViews();

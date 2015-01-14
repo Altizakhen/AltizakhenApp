@@ -35,12 +35,13 @@ public class Furniture extends FragmentActivity {
         itemList = (ListView) findViewById(R.id.furniture_list);
 /*        items = new ArrayList<Item>();
         populateList();*/
-        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0);
+        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0, itemList);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                MainActivity.currentItemBitmap = ((listAdapter)adapterView.getAdapter()).getImage(i);
                 Intent intent = new Intent(getApplication(), itemFragment.class);
                 startActivity(intent);
             }

@@ -124,8 +124,6 @@ public class ApiHelper {
             if (itemCollection != null) {
                 MainActivity.items = itemCollection.getItems();
                 if (MainActivity.items != null) {
-                    Item firstItem = itemCollection.getItems().get(0);
-                    Toast.makeText(context, "first item: " + firstItem.toString(), Toast.LENGTH_LONG).show();
                     Fragment fragment = new HomeFragment();
                     FragmentManager fragmentManager =
                             ((FragmentActivity)context).getSupportFragmentManager();
@@ -155,7 +153,6 @@ public class ApiHelper {
         @Override
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
-            Toast.makeText(context, "Added User: id:" + user.getId(), Toast.LENGTH_LONG).show();
             MainActivity.userServerId = user.getId();
 
         }
@@ -186,7 +183,6 @@ public class ApiHelper {
             if (itemImage != null) {
                 addImageToItem(item.getId(), itemImage);
             }
-            Toast.makeText(context, "Added: " + item.toString(), Toast.LENGTH_LONG).show();
         }
     }
 
