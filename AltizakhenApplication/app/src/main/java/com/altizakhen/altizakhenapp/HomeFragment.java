@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +50,8 @@ public class HomeFragment extends Fragment{
         list = new ArrayList<Item>();
         listAdapter adapter = new listAdapter(getActivity(), MainActivity.items, 0, itemList);
         itemList.setAdapter(adapter);
+        /*Button b = (Button)rootView.findViewById(R.id.button3);
+        b.setVisibility(View.INVISIBLE);*/
         itemList.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
-import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;

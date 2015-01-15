@@ -1,6 +1,5 @@
 package com.altizakhen.altizakhenapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -228,6 +227,10 @@ public class ApiHelper {
             super.onPostExecute(item);
             Toast.makeText(context, "Deleted: " + item.toString(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void deleteItem(Item item) {
+        new DeleteItemTask().execute(item);
     }
 
     public class IncreaseViewCountTask extends AsyncTask<String, String, Void> {

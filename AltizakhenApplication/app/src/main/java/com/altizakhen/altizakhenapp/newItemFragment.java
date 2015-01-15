@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.altizakhen.altizakhenapp.Categories.Books;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 
 import java.io.InputStream;
@@ -145,6 +144,10 @@ public class newItemFragment extends Activity {
         }
         if (location.isEmpty()) {
             Toast.makeText(this, "Enter the pick up location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (description.isEmpty()) {
+            Toast.makeText(this, "Enter description", Toast.LENGTH_SHORT).show();
             return;
         }
         if (img.getDrawable() == null) {

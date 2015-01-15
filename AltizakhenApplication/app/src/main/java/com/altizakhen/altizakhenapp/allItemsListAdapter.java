@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.viewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

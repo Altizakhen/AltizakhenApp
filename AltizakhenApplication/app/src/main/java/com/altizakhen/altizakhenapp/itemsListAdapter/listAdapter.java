@@ -18,7 +18,6 @@ import com.altizakhen.altizakhenapp.MainActivity;
 import com.altizakhen.altizakhenapp.R;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -89,6 +88,7 @@ public class listAdapter extends BaseAdapter{
                 ImageDownloader downloadImg = new ImageDownloader(context,currentItem.getId(),images,position,list);
                 downloadImg.getAndSetImageOfItem();
                 isImageRequestSent[position] = true;
+                holder.itemIcon.setImageBitmap(null);
             }
         } else {
             holder.itemIcon.setImageBitmap(images[position]);

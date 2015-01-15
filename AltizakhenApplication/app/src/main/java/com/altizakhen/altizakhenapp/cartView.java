@@ -1,16 +1,16 @@
 package com.altizakhen.altizakhenapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
-
-import java.util.ArrayList;
 
 /**
  * Created by t-mansh on 1/12/2015.
@@ -27,6 +27,17 @@ public class cartView extends Activity{
 
         listAdapter adapter = new listAdapter(this, MainActivity.cart, 1,cartView);
         cartView.setAdapter(adapter);
+        /*Button b = (Button)findViewById(R.id.button3);
+        b.setVisibility(View.VISIBLE);*/
+        cartView.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                MainActivity.currentItemBitmap = ((listAdapter)adapterView.getAdapter()).getImage(i);
+                Intent intent = new Intent(getApplication(), itemFragment.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void CustomizeFont() {

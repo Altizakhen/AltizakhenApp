@@ -45,9 +45,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/add_to_cart"
         android:background="@android:drawable/ic_menu_add"
-        android:layout_alignTop="@+id/Name"
+        android:focusable="false"
+        android:layout_below="@+id/Name"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:focusable="false"/>
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_above="@+id/add_to_cart"
+        android:layout_alignRight="@+id/add_to_cart"
+        android:layout_alignEnd="@+id/add_to_cart"
+        android:layout_alignLeft="@+id/add_to_cart"
+        android:layout_alignStart="@+id/add_to_cart"
+        android:background="@android:drawable/ic_delete"
+        android:visibility="invisible" />
 
 </RelativeLayout>
