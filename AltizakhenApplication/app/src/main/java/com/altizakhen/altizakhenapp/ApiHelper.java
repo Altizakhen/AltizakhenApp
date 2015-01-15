@@ -11,7 +11,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.backend.firebaseChatApi.FirebaseChatApi;
@@ -21,6 +24,7 @@ import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.ItemCollection;
 import com.altizakhen.altizakhenapp.backend.userApi.UserApi;
 import com.altizakhen.altizakhenapp.backend.userApi.model.User;
+import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -105,12 +109,12 @@ public class ApiHelper {
         new AddItemTask(itemImage).execute(item);
     }
 
-    public void addUser(String name, String facebookId) {
-        new AddUserTask().execute(name, facebookId);
+    public void addUser(String name, String facebookId, ListView targetList) {
+        new AddUserTask(targetList).execute(name, facebookId);
     }
 
-    public void getUserItems(String userId) {
-       new GetUserItemsTask().execute(userId);
+    public void getUserItems(String userId, Context cntx,ListView target ) {
+       new GetUserItemsTask(cntx, target).execute(userId);
     }
 
     public void generateFirebaseChat(String userId1, String userId2, FirebaseChatCallback callback) {
@@ -146,6 +150,13 @@ public class ApiHelper {
     }
 
     public class AddUserTask extends AsyncTask<String, String, User> {
+        private ListView targetList;
+
+
+        public AddUserTask(ListView list) {
+
+            targetList=list;
+        }
         @Override
         protected User doInBackground(String... strings) {
             String userName = strings[0];
@@ -165,6 +176,8 @@ public class ApiHelper {
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
             MainActivity.userServerId = user.getId();
+            getUserItems(user.getId(),context,targetList);
+//            Toast.makeText(context,"user is is"+user.getId(),Toast.LENGTH_LONG).show();
 
         }
     }
@@ -231,8 +244,14 @@ public class ApiHelper {
         }
     }
 
-    public class GetUserItemsTask extends AsyncTask<String, String, List> {
+    public class GetUserItemsTask extends AsyncTask<String, String, List<Item>> {
+        Context context;
+        ListView targetList;
 
+        public GetUserItemsTask(Context cntx, ListView lst) {
+            context = cntx;
+            targetList = lst;
+        }
         @Override
         protected List<Item> doInBackground(String... strings) {
             String userId = strings[0];
@@ -247,10 +266,24 @@ public class ApiHelper {
         }
 
         @Override
-        protected void onPostExecute(List list) {
+        protected void onPostExecute(List<Item> list) {
             super.onPostExecute(list);
             // items has the items of the user.
-
+            if (list != null) {
+                MyAltizakhen.userItemslist = list;
+                MyAltizakhen.Mylistadapter = new listAdapter(context, MyAltizakhen.userItemslist, 1,targetList);
+                targetList.setAdapter(MyAltizakhen.Mylistadapter);
+                targetList.setOnItemClickListener(new ListView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                        MainActivity.currentItemBitmap = ((listAdapter)adapterView.getAdapter()).getImage(i);
+                        Intent intent = new Intent(context, itemFragment.class);
+                        context.startActivity(intent);
+                    }
+                });
+                targetList.invalidateViews();
+            }
         }
     }
 

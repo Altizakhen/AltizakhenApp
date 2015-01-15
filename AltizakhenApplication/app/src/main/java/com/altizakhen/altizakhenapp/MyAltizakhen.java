@@ -12,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
@@ -29,6 +31,7 @@ import com.facebook.widget.LoginButton;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by t-mansh on 12/29/2014.
@@ -36,16 +39,19 @@ import java.util.Arrays;
 public class MyAltizakhen extends Fragment {
     private TextView userInfoTextView;
     private ListView list;
-    private ArrayList<Item> list1;
+    public static List<Item> userItemslist;
     private ImageView img;
     private String userId;
     private int MyId;
+    private static Boolean downloadFlag;
+    public static listAdapter Mylistadapter;
 
     public int getMyId() {
         return MyId;
     }
 
     public MyAltizakhen() {
+        downloadFlag = false;
     }
 
 
@@ -65,8 +71,10 @@ public class MyAltizakhen extends Fragment {
         if (state.isOpened()) {
             // hon bte3'dar et3'ayer el log-in buttun et7ot ma7alo log-out
 //            Log.i(TAG, "Logged in...");
+
             userInfoTextView.setVisibility(View.VISIBLE);
             list.setVisibility(View.VISIBLE);
+
             img.setVisibility(View.VISIBLE);
             // Request user data and show the results
             Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
@@ -80,8 +88,11 @@ public class MyAltizakhen extends Fragment {
                         MainActivity.userFacebookId = user.getId();
                         new DownloadImageTask(img)
                                 .execute("https://graph.facebook.com/" + userId + "/picture?type=large");
-                        ApiHelper api = new ApiHelper(getActivity());
-                        api.addUser(user.getName(),user.getId());
+                        if (downloadFlag == false) {
+                            downloadFlag = true;
+                            ApiHelper api = new ApiHelper(getActivity());
+                            api.addUser(user.getName(), user.getId(), list);
+                        }
                     }
                 }
             });
@@ -153,9 +164,20 @@ public class MyAltizakhen extends Fragment {
                 false);
         list = (ListView) rootView.findViewById(R.id.listView);
         img = (ImageView) rootView.findViewById(R.id.profileImg);
-        list1 = new ArrayList<Item>();
-        populateList();
-        list.setAdapter(new myAltizakhenList(getActivity(), list1, 1));
+
+        if(Mylistadapter != null) {
+            list.setAdapter(Mylistadapter);
+            list.setOnItemClickListener(new ListView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                    MainActivity.currentItemBitmap = ((listAdapter)adapterView.getAdapter()).getImage(i);
+                    Intent intent = new Intent(getActivity(), itemFragment.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
         userInfoTextView = (TextView) rootView.findViewById(R.id.userInfoTextView);
         Typeface type = Typeface.createFromAsset(getActivity().getAssets(), "djb.ttf");
         userInfoTextView.setTypeface(type);
@@ -176,21 +198,6 @@ public class MyAltizakhen extends Fragment {
         userInfo.append(String.format("Hello %s,\n\n",
                 user.getName()));
         return userInfo.toString();
-    }
-
-    private void populateList() {
-
-        for (int i = 0; i < 10; ++i) {
-            Item item1 = new Item();
-            item1.setName("bed");
-            item1.setPrice(75);
-            item1.setLocation("haifa");
-            item1.setIconId(R.drawable.ic_bed1);
-//            item1.setSellerId(13);
-            item1.setSellerName("Manar");
-            item1.setDescription("Brand New");
-            list1.add(item1);
-        }
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

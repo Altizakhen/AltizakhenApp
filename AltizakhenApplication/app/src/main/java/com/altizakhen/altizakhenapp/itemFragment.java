@@ -51,7 +51,7 @@ public class itemFragment extends FragmentActivity {
             }
         });
 
-        if (MainActivity.userServerId.isEmpty()){
+        if (MainActivity.userServerId == null){
 
             findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
             findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
