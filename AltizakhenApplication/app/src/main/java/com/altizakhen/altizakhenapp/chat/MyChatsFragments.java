@@ -47,9 +47,14 @@ public class MyChatsFragments extends Activity {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                apiHelper.getUserChats(MainActivity.userServerId, lv);
+                MyChatsFragments.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        apiHelper.getUserChats(MainActivity.userServerId, lv);
+                    }
+                });
             }
-        }, 0, 5000);
+        }, 0, 7000);
 
     }
 

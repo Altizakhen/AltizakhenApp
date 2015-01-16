@@ -1,5 +1,6 @@
 package com.altizakhen.altizakhenapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,8 +24,8 @@ import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.ItemCollection;
 import com.altizakhen.altizakhenapp.backend.userApi.UserApi;
 import com.altizakhen.altizakhenapp.backend.userApi.model.User;
-import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 import com.altizakhen.altizakhenapp.chat.MyChatAdapter;
+import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -64,6 +65,26 @@ public class ApiHelper {
                 new FirebaseChatApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
         builderUser.setRootUrl("https://altizakhen-1.appspot.com/_ah/api");
         firebaseChatApi = builderFirebase.build();
+    }
+
+    abstract class SpinnerAsyncTask<A,B,C> extends AsyncTask<A,B,C> {
+        private ProgressDialog dialog = new ProgressDialog(context);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            this.dialog.setMessage("Please wait");
+            this.dialog.show();
+
+        }
+
+        @Override
+        protected void onPostExecute(C c) {
+            super.onPostExecute(c);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }
     }
 
     // An example of how to use this API. Shows the first item in Toast.
@@ -125,7 +146,7 @@ public class ApiHelper {
         new GetUserChats(lv).execute(userId);
     }
 
-    public class QueryItemsTask extends AsyncTask<Void, Void, ItemCollection> {
+    public class QueryItemsTask extends SpinnerAsyncTask<Void, Void, ItemCollection> {
         @Override
         protected ItemCollection doInBackground(Void... voids) {
             ItemCollection items = null;
@@ -153,7 +174,7 @@ public class ApiHelper {
         }
     }
 
-    public class AddUserTask extends AsyncTask<String, String, User> {
+    public class AddUserTask extends SpinnerAsyncTask<String, String, User> {
         private ListView targetList;
 
 
@@ -188,7 +209,7 @@ public class ApiHelper {
         }
     }
 
-    public class AddItemTask extends AsyncTask<Item, Item, Item> {
+    public class AddItemTask extends SpinnerAsyncTask<Item, Item, Item> {
         private Bitmap itemImage;
 
         public AddItemTask(Bitmap itemImage) {
@@ -216,7 +237,7 @@ public class ApiHelper {
         }
     }
 
-    public class DeleteItemTask extends AsyncTask<Item, Item, Item> {
+    public class DeleteItemTask extends SpinnerAsyncTask<Item, Item, Item> {
         @Override
         protected Item doInBackground(Item... items) {
             Item item = items[0];
@@ -240,7 +261,7 @@ public class ApiHelper {
         new DeleteItemTask().execute(item);
     }
 
-    public class GetUserChats extends AsyncTask<String, String, List<FirebaseChat> > {
+    public class GetUserChats extends SpinnerAsyncTask<String, String, List<FirebaseChat> > {
         ListView lv;
         public GetUserChats(ListView lv) {
             this.lv = lv;
@@ -265,7 +286,7 @@ public class ApiHelper {
         }
     }
 
-    public class IncreaseViewCountTask extends AsyncTask<String, String, Void> {
+    public class IncreaseViewCountTask extends SpinnerAsyncTask<String, String, Void> {
         @Override
         protected Void doInBackground(String... items) {
             String itemId = items[0];
@@ -279,7 +300,7 @@ public class ApiHelper {
         }
     }
 
-    public class GetUserItemsTask extends AsyncTask<String, String, List<Item>> {
+    public class GetUserItemsTask extends SpinnerAsyncTask<String, String, List<Item>> {
         Context context;
         ListView targetList;
 
@@ -326,7 +347,7 @@ public class ApiHelper {
         public void onFirebaseChat(FirebaseChat fbchat);
     }
 
-    public class GenerateFirebaseChatId extends AsyncTask<String, String, FirebaseChat> {
+    public class GenerateFirebaseChatId extends SpinnerAsyncTask<String, String, FirebaseChat> {
         private FirebaseChatCallback callback;
         public GenerateFirebaseChatId(FirebaseChatCallback callback) {
             this.callback = callback;
