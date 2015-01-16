@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
-import com.altizakhen.altizakhenapp.chat.ChatActivity;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
 
 import java.util.ArrayList;
@@ -35,16 +33,6 @@ public class HomeFragment extends Fragment{
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         CustomizeFont(rootView);
-        ((Button) rootView.findViewById(R.id.open_chat)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), ChatActivity.class);
-                String omarId = "ag5zfmFsdGl6YWtoZW4tMXImCxIEVXNlciILQWhtYWQgQWJiYXMMCxIEVXNlchiAgICAgICACgw";
-                String ahmadId = "ag5zfmFsdGl6YWtoZW4tMXImCxIEVXNlciILQWhtYWQgQWJiYXMMCxIEVXNlchiAgICAgICACgw";
-                myIntent.putExtra("otherUserId", ahmadId);
-                startActivity(myIntent);
-            }
-        });
         itemList = (ListView) rootView.findViewById(R.id.listView4);
 
         list = new ArrayList<Item>();

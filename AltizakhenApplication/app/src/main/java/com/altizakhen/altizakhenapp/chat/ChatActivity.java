@@ -10,7 +10,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.ApiHelper;
 import com.altizakhen.altizakhenapp.MainActivity;
@@ -42,7 +41,7 @@ public class ChatActivity extends ListActivity {
         final String otherUserId = intent.getExtras().getString("otherUserId");
 
         // Make sure we have a mUsername
-        mUsername = "";
+         mUsername = MainActivity.user.getName();
 
         // Setup our Firebase mFirebaseRef
         mFirebaseRef = new Firebase(FIREBASE_URL).child("chat");
@@ -94,9 +93,9 @@ public class ChatActivity extends ListActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean connected = (Boolean) dataSnapshot.getValue();
                 if (connected) {
-                    Toast.makeText(ChatActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ChatActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ChatActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ChatActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
                 }
             }
 

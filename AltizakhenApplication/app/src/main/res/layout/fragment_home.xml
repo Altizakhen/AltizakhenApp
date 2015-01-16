@@ -2,11 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/open_chat"
-        android:text="Open Chat"/>
 
     <TextView
         android:id="@+id/txtLabel"
