@@ -24,6 +24,7 @@ import com.altizakhen.altizakhenapp.backend.itemApi.model.ItemCollection;
 import com.altizakhen.altizakhenapp.backend.userApi.UserApi;
 import com.altizakhen.altizakhenapp.backend.userApi.model.User;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
+import com.altizakhen.altizakhenapp.chat.MyChatAdapter;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -120,6 +121,10 @@ public class ApiHelper {
         new GenerateFirebaseChatId(callback).execute(userId1, userId2);
     }
 
+    public void getUserChats(String userId, ListView lv) {
+        new GetUserChats(lv).execute(userId);
+    }
+
     public class QueryItemsTask extends AsyncTask<Void, Void, ItemCollection> {
         @Override
         protected ItemCollection doInBackground(Void... voids) {
@@ -176,8 +181,10 @@ public class ApiHelper {
             super.onPostExecute(user);
             MainActivity.userServerId = user.getId();
             getUserItems(user.getId(),context,targetList);
+            MyAltizakhen.myChatsButton.setVisibility(View.VISIBLE);
 //            Toast.makeText(context,"user is is"+user.getId(),Toast.LENGTH_LONG).show();
 
+            MainActivity.user = user;
         }
     }
 
@@ -231,6 +238,31 @@ public class ApiHelper {
 
     public void deleteItem(Item item) {
         new DeleteItemTask().execute(item);
+    }
+
+    public class GetUserChats extends AsyncTask<String, String, List<FirebaseChat> > {
+        ListView lv;
+        public GetUserChats(ListView lv) {
+            this.lv = lv;
+        }
+
+        @Override
+        protected List<FirebaseChat> doInBackground(String... strings) {
+            String userdId = strings[0];
+            List<FirebaseChat> chatList = null;
+            try {
+                chatList = firebaseChatApi.getUserChats(userdId).execute().getItems();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return chatList;
+        }
+
+        @Override
+        protected void onPostExecute(List<FirebaseChat> firebaseChats) {
+            super.onPostExecute(firebaseChats);
+            lv.setAdapter(new MyChatAdapter(firebaseChats, context, MainActivity.userServerId));
+        }
     }
 
     public class IncreaseViewCountTask extends AsyncTask<String, String, Void> {
@@ -302,7 +334,7 @@ public class ApiHelper {
         @Override
         protected FirebaseChat doInBackground(String... strings) {
             String userId1 = strings[0];
-            String userId2 = strings[0];
+            String userId2 = strings[1];
             FirebaseChat fbchat = null;
             try {
                 fbchat = firebaseChatApi.getFirebaseChat(userId1, userId2).execute();

@@ -104,6 +104,10 @@ public class UserEndpoint {
 
     }
 
+    public static String getUserNameFromId(String userId) {
+        return getUserFromId(userId).getProperty("name").toString();
+    }
+
 
     private User entityToUser(Entity entity) {
         User user = new User(KeyFactory.keyToString(entity.getKey()), entity.getProperty("name").toString(), entity.getProperty("facebookId").toString());

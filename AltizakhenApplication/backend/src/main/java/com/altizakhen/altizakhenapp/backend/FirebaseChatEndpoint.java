@@ -40,7 +40,8 @@ public class FirebaseChatEndpoint {
         }
 
         int randomInt = new Random().nextInt(500000000);
-        FirebaseChat fbchat = new FirebaseChat(userId1, userId2, Integer.toString(randomInt));
+        FirebaseChat fbchat = new FirebaseChat(
+                userId1, UserEndpoint.getUserNameFromId(userId1), userId2, UserEndpoint.getUserNameFromId(userId2), Integer.toString(randomInt));
         chats.add(fbchat);
         return fbchat;
     }

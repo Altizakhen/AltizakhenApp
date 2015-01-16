@@ -22,6 +22,7 @@ import android.widget.ListView;
 
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
+import com.altizakhen.altizakhenapp.backend.userApi.model.User;
 import com.altizakhen.altizakhenapp.model.NavDrawerItem;
 import com.firebase.client.Firebase;
 
@@ -44,6 +45,7 @@ public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     static String userFacebookId;
     public static String userServerId;
+    public static User user;
 
     static public ArrayList<Item> catItems;
 
