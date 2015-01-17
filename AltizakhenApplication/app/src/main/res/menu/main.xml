@@ -20,4 +20,10 @@
         android:title="@string/action_add"
         android:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/search"
+        android:title="@string/search_title"
+        android:icon="@android:drawable/ic_menu_search"
+        android:showAsAction="collapseActionView|ifRoom"
+        android:actionViewClass="android.widget.SearchView" />
+
 </menu>

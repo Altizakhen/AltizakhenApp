@@ -9,6 +9,7 @@
     <string name="drawer_close">Slider Menu Closed</string>
     <string name="action_cart">Cart</string>
     <string name="action_add">Add Item</string>
+    <string name="search_title">search</string>
 
 
     <!-- Nav Drawer Menu Items -->
