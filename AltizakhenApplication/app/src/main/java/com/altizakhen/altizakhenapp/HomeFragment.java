@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment{
         itemList = (ListView) rootView.findViewById(R.id.listView4);
 
         list = new ArrayList<Item>();
-        listAdapter adapter = new listAdapter(getActivity(), MainActivity.items, 0, itemList);
+        listAdapter adapter = new listAdapter(getActivity(), MainActivity.items, 0, 1, itemList);
         itemList.setAdapter(adapter);
         /*Button b = (Button)rootView.findViewById(R.id.button3);
         b.setVisibility(View.INVISIBLE);*/

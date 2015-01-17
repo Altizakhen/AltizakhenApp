@@ -327,7 +327,7 @@ public class ApiHelper {
             // items has the items of the user.
             if (list != null) {
                 MyAltizakhen.userItemslist = list;
-                MyAltizakhen.Mylistadapter = new listAdapter(context, MyAltizakhen.userItemslist, 1,targetList);
+                MyAltizakhen.Mylistadapter = new listAdapter(context, MyAltizakhen.userItemslist, 1, 1, targetList);
                 targetList.setAdapter(MyAltizakhen.Mylistadapter);
                 targetList.setOnItemClickListener(new ListView.OnItemClickListener() {
                     @Override

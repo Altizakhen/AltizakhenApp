@@ -28,7 +28,7 @@ public class Furniture extends FragmentActivity {
         itemList = (ListView) findViewById(R.id.furniture_list);
 /*        items = new ArrayList<Item>();
         populateList();*/
-        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0, itemList);
+        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0, 1,itemList);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

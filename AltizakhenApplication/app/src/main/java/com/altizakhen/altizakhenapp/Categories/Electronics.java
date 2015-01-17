@@ -27,7 +27,7 @@ public class Electronics extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.electronics);
         itemList = (ListView) findViewById(R.id.electronics_list);
-        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0, itemList);
+        listAdapter adapter = new listAdapter(this, MainActivity.catItems, 0, 1, itemList);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

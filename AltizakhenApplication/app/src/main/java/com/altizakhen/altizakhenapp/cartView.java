@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,10 +26,8 @@ public class cartView extends Activity{
         CustomizeFont();
         cartView = (ListView) findViewById(R.id.cartList);
 
-        listAdapter adapter = new listAdapter(this, MainActivity.cart, 1,cartView);
+        listAdapter adapter = new listAdapter(this, MainActivity.cart, 1, 0, cartView);
         cartView.setAdapter(adapter);
-        /*Button b = (Button)findViewById(R.id.button3);
-        b.setVisibility(View.VISIBLE);*/
         cartView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -38,6 +37,12 @@ public class cartView extends Activity{
                 startActivity(intent);
             }
         });
+    }
+
+    protected void onResume(Bundle savedInstanceState) {
+        cartView = (ListView) findViewById(R.id.cartList);
+        listAdapter adapter = new listAdapter(this, MainActivity.cart, 1, 0, cartView);
+        cartView.setAdapter(adapter);
     }
 
     private void CustomizeFont() {

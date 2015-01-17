@@ -37,6 +37,7 @@ import java.util.List;
 /**
  * Created by t-mansh on 12/29/2014.
  */
+
 public class MyAltizakhen extends Fragment {
     private TextView userInfoTextView;
     private ListView list;

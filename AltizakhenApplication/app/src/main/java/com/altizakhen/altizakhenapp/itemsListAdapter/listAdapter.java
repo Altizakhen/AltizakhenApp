@@ -26,15 +26,17 @@ import java.util.List;
 public class listAdapter extends BaseAdapter{
     private Context context;
     private List<Item> Items;
-    private int visibility;
+    private int visibility_add;
+    private int visibility_remove;
     private Bitmap[] images;
     private boolean[] isImageRequestSent;
     ListView list;
 
-    public listAdapter(Context context, List<Item> Items, int visibility, ListView lst){
+    public listAdapter(Context context, List<Item> Items, int visibility_add, int visibility_remove, ListView lst){
         this.context = context;
         this.Items = Items;
-        this.visibility = visibility;
+        this.visibility_add = visibility_add;
+        this.visibility_remove = visibility_remove;
         list = lst;
         if (Items != null) {
             this.images = new Bitmap[Items.size()];
@@ -94,18 +96,22 @@ public class listAdapter extends BaseAdapter{
             holder.itemIcon.setImageBitmap(images[position]);
         }
 
-
-//       holder.itemIcon.setImageResource(currentItem.getIconId());
         holder.itemIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         holder.Name.setText(currentItem.getName());
         holder.Price.setText(String.valueOf(currentItem.getPrice()));
         holder.Location.setText(currentItem.getLocation());
 
         Button addToCart = (Button)view.findViewById(R.id.add_to_cart);
-        if (visibility == 0){
+        Button removeFromCart = (Button) view.findViewById(R.id.button3);
+        if (visibility_add == 0){
             addToCart.setVisibility(View.VISIBLE);
         } else {
             addToCart.setVisibility(View.INVISIBLE);
+        }
+        if (visibility_remove == 0){
+            removeFromCart.setVisibility(View.VISIBLE);
+        } else {
+            removeFromCart.setVisibility(View.INVISIBLE);
         }
 
         addToCart.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +123,15 @@ public class listAdapter extends BaseAdapter{
                     MainActivity.cart.add(currentItem);
                     Toast.makeText(context, "Item was added to Cart", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        removeFromCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.cart.remove(currentItem);
+                Toast.makeText(context, "Item deleted from Cart", Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
             }
         });
 
