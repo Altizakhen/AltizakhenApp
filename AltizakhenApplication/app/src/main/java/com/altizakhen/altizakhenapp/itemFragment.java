@@ -1,5 +1,6 @@
 package com.altizakhen.altizakhenapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
+import com.altizakhen.altizakhenapp.chat.ChatActivity;
 
 ;
 
@@ -53,7 +55,9 @@ public class itemFragment extends FragmentActivity {
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: contact the seller
+                Intent intent = new Intent(itemFragment.this, ChatActivity.class);
+                intent.putExtra("otherUserId", item.getUserId());
+                startActivity(intent);
             }
         });
 
