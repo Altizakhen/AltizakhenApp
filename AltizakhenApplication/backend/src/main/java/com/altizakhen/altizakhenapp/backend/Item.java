@@ -98,4 +98,12 @@ public class Item {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
 }

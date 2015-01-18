@@ -146,6 +146,10 @@ public class ApiHelper {
         new GetUserChats(lv).execute(userId);
     }
 
+    public void increaseViewCount(String itemId) {
+        new IncreaseViewCountTask().execute(itemId);
+    }
+
     public class QueryItemsTask extends SpinnerAsyncTask<Void, Void, ItemCollection> {
         @Override
         protected ItemCollection doInBackground(Void... voids) {
