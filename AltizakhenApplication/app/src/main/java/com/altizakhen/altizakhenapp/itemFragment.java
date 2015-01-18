@@ -64,7 +64,7 @@ public class itemFragment extends FragmentActivity {
         if (MainActivity.userServerId == null){
 
             findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
-            findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.contact_button).setVisibility(View.INVISIBLE);
         }
         else if(MainActivity.userServerId.equals(item.getUserId())){
            findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
