@@ -38,13 +38,18 @@ public class SearchResultsActivity extends ListActivity {
 
     private void doSearch(String query) {
         ArrayList<Item> result = new ArrayList<Item>();
-
-        for ( Item item : MainActivity.items){
-            if (item.getName().contains(query) || item.getLocation().contains(query)
-                    || item.getDescription().contains(query)){
-                result.add(item);
+        String[] splited = query.split("\\s+");
+        for (String s : splited){
+            for ( Item item : MainActivity.items){
+                if (item.getName().contains(query) || item.getLocation().contains(query)
+                        || item.getDescription().contains(query)){
+                    if (!result.contains(item)){
+                        result.add(item);
+                    }
+                }
             }
         }
+
         listAdapter adapter = new listAdapter(getApplication(),result, 0, 1,this.getListView());
         this.getListView().setAdapter(adapter);
     }

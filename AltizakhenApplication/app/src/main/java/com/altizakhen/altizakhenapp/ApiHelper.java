@@ -296,7 +296,7 @@ public class ApiHelper {
         task.execute();
     }
 
-    public class IncreaseViewCountTask extends SpinnerAsyncTask<String, String, Void> {
+    public class IncreaseViewCountTask extends AsyncTask<String, String, Void> {
         @Override
         protected Void doInBackground(String... items) {
             String itemId = MainActivity.currentItemInView.getId();
