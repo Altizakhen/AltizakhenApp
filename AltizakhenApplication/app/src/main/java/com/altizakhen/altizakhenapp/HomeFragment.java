@@ -68,7 +68,16 @@ public class HomeFragment extends Fragment{
                     }
                     MainActivity.items = sortedItems;
                 } else if (i==2) {
-
+                    for( int i1 = 0; i1 < sortedItems.size(); ++i1) {
+                        int max = i1;
+                        for(int j1 = i1; j1 < sortedItems.size(); ++j1) {
+                            if ( sortedItems.get(max).getViewCount() < sortedItems.get(j1).getViewCount()){
+                                max = j1;
+                            }
+                        }
+                        sortedItems.set(max,sortedItems.set(i1, sortedItems.get(max)));
+                    }
+                    MainActivity.items = sortedItems;
                 }
                 listAdapter adapter = new listAdapter(getActivity(), MainActivity.items, 0, 1, itemList);
                 itemList.setAdapter(adapter);

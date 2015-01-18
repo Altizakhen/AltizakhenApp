@@ -213,7 +213,7 @@ public class ApiHelper {
         }
     }
 
-    public class AddItemTask extends SpinnerAsyncTask<Item, Item, Item> {
+    public class AddItemTask extends AsyncTask<Item, Item, Item> {
         private Bitmap itemImage;
 
         public AddItemTask(Bitmap itemImage) {
