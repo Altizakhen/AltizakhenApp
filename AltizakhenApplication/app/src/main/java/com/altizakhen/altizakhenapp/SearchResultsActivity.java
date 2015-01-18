@@ -41,8 +41,8 @@ public class SearchResultsActivity extends ListActivity {
         String[] splited = query.split("\\s+");
         for (String s : splited){
             for ( Item item : MainActivity.items){
-                if (item.getName().contains(query) || item.getLocation().contains(query)
-                        || item.getDescription().contains(query)){
+                if (item.getName().contains(s) || item.getLocation().contains(s)
+                        || item.getDescription().contains(s)){
                     if (!result.contains(item)){
                         result.add(item);
                     }

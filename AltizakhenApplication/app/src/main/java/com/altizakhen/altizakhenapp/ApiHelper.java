@@ -293,7 +293,7 @@ public class ApiHelper {
 
     public void IncreaseCountView() {
         IncreaseViewCountTask task = new IncreaseViewCountTask();
-        task.execute();
+        task.execute(MainActivity.currentItemInView);
     }
 
 

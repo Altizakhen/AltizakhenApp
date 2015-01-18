@@ -77,12 +77,8 @@ public class itemFragment extends FragmentActivity {
             findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
 
         }
-    }
-
-    protected void onResume(Bundle savedInstanceState){
         ApiHelper api = new ApiHelper(getApplication());
         api.IncreaseCountView();
-        Toast.makeText(getApplication(),"View Count: " + MainActivity.currentItemInView.getViewCount(), Toast.LENGTH_SHORT).show();
     }
 
 }
