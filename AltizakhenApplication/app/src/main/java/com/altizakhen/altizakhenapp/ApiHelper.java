@@ -146,8 +146,8 @@ public class ApiHelper {
         new GetUserChats(lv).execute(userId);
     }
 
-    public void increaseViewCount(String itemId) {
-        new IncreaseViewCountTask().execute(itemId);
+    public void increaseViewCount(Item item) {
+        new IncreaseViewCountTask().execute(item);
     }
 
     public class QueryItemsTask extends SpinnerAsyncTask<Void, Void, ItemCollection> {
@@ -246,7 +246,7 @@ public class ApiHelper {
         protected Item doInBackground(Item... items) {
             Item item = items[0];
             try {
-                itemApi.deleteItem(item.getId());
+                itemApi.deleteItem(item.getId()).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -257,7 +257,7 @@ public class ApiHelper {
         @Override
         protected void onPostExecute(Item item) {
             super.onPostExecute(item);
-            Toast.makeText(context, "Deleted: " + item.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Deleted: " + item.getName().toString(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -296,12 +296,16 @@ public class ApiHelper {
         task.execute();
     }
 
-    public class IncreaseViewCountTask extends AsyncTask<String, String, Void> {
+
+    public class IncreaseViewCountTask extends AsyncTask<Item, Item, Void> {
         @Override
-        protected Void doInBackground(String... items) {
-            String itemId = MainActivity.currentItemInView.getId();
+        protected Void doInBackground(Item... items) {
+            String itemId = items[0].getId();
             try {
-                itemApi.increaseViewCount(itemId);
+                itemApi.increaseViewCount(itemId).execute();
+                int v =items[0].getViewCount();
+                v++;
+                items[0].setViewCount(v);
             } catch (IOException e) {
                 e.printStackTrace();
             }
