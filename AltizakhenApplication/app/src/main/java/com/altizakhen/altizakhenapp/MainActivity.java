@@ -1,11 +1,15 @@
 package com.altizakhen.altizakhenapp;
 
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -22,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
@@ -66,86 +71,126 @@ public class MainActivity extends FragmentActivity {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
+    static public boolean isConnected = true;
+
     static public List<Item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Firebase.setAndroidContext(this);
+        isConnected = isConnected();
+        if (!isConnected) {
+            Toast.makeText(this, "Please connect to the internet.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        } else {
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(new PlaceholderFragment(), " ")
-                    .commit();
-        }
+            Firebase.setAndroidContext(this);
 
-        fragments = new Fragment[3];
-        fragments[0] = new HomeFragment();
-        fragments[1] = new categoriesFragment();
-        fragments[2] = new MyAltizakhen();
-
-        this.cart = new ArrayList<Item>();
-
-        ApiHelper api = new ApiHelper(this);
-        api.getAllItems();
-        mTitle = mDrawerTitle = getTitle();
-
-        // load slide menu items
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-
-        // nav drawer icons from resources
-        navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-        navDrawerItems = new ArrayList<NavDrawerItem>();
-
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-
-
-        // Recycle the typed array
-        navMenuIcons.recycle();
-
-        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
-        // setting the nav drawer list adapter
-        adapter = new NavDrawerListAdapter(getApplicationContext(),
-                navDrawerItems);
-        mDrawerList.setAdapter(adapter);
-
-        // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_list
-                , //nav menu toggle icon
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
-        ) {
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mDrawerTitle);
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(new PlaceholderFragment(), " ")
+                        .commit();
             }
 
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+            fragments = new Fragment[3];
+            fragments[0] = new HomeFragment();
+            fragments[1] = new categoriesFragment();
+            fragments[2] = new MyAltizakhen();
 
-        if (savedInstanceState == null) {
-            // on first time display view for first nav item
-            displayView(0);
+            this.cart = new ArrayList<Item>();
+
+            ApiHelper api = new ApiHelper(this);
+            api.getAllItems();
+            mTitle = mDrawerTitle = getTitle();
+
+            // load slide menu items
+            navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+
+            // nav drawer icons from resources
+            navMenuIcons = getResources()
+                    .obtainTypedArray(R.array.nav_drawer_icons);
+
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+
+            navDrawerItems = new ArrayList<NavDrawerItem>();
+
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+
+
+            // Recycle the typed array
+            navMenuIcons.recycle();
+
+            mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+
+            // setting the nav drawer list adapter
+            adapter = new NavDrawerListAdapter(getApplicationContext(),
+                    navDrawerItems);
+            mDrawerList.setAdapter(adapter);
+
+            // enabling action bar app icon and behaving it as toggle button
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+            getActionBar().setHomeButtonEnabled(true);
+
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                    R.drawable.ic_list
+                    , //nav menu toggle icon
+                    R.string.app_name, // nav drawer open - description for accessibility
+                    R.string.app_name // nav drawer close - description for accessibility
+            ) {
+                public void onDrawerClosed(View view) {
+                    getActionBar().setTitle(mDrawerTitle);
+                    // calling onPrepareOptionsMenu() to show action bar icons
+                    invalidateOptionsMenu();
+                }
+
+                public void onDrawerOpened(View drawerView) {
+                    getActionBar().setTitle(mDrawerTitle);
+                    // calling onPrepareOptionsMenu() to hide action bar icons
+                    invalidateOptionsMenu();
+                }
+            };
+            mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+            if (savedInstanceState == null) {
+                // on first time display view for first nav item
+                displayView(0);
+            }
+
+            BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
+
+                @Override
+                public void onReceive(Context context, Intent intent) {
+//                Toast.makeText(this, "Please connect to internet.", Toast.LENGTH_LONG).show();
+//                String action = intent.getAction();
+//                if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                    if (!isConnected()) {
+                        Toast.makeText(context, "No intenet. Please connect to internet", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+//                }
+
+
+                }
+            };
+
+            IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(networkStateReceiver, filter);
         }
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
     @Override
@@ -179,6 +224,9 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (!isConnected) {
+            return false;
+        }
         // Handle presses on the action bar items
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -216,7 +264,11 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+//        if (mDrawerLayout != null) {
+//        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        if (!isConnected) {
+            return false;
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 
