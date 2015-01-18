@@ -49,6 +49,8 @@ public class itemFragment extends FragmentActivity {
             public void onClick(View view) {
                 ApiHelper api = new ApiHelper(getApplication());
                 api.deleteItem(item);
+                finish();
+                return;
             }
         });
 

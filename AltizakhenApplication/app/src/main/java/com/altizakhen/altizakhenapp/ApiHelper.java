@@ -246,7 +246,7 @@ public class ApiHelper {
         protected Item doInBackground(Item... items) {
             Item item = items[0];
             try {
-                itemApi.deleteItem(item.getId());
+                itemApi.deleteItem(item.getId()).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -257,7 +257,7 @@ public class ApiHelper {
         @Override
         protected void onPostExecute(Item item) {
             super.onPostExecute(item);
-            Toast.makeText(context, "Deleted: " + item.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Deleted: " + item.getName().toString(), Toast.LENGTH_LONG).show();
         }
     }
 

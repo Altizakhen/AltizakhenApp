@@ -197,7 +197,7 @@ public class MyAltizakhen extends Fragment {
         LoginButton authButton = (LoginButton) rootView
                 .findViewById(R.id.authButton);
         authButton.setReadPermissions(Arrays.asList("public_profile", "user_location"));
-        
+
         authButton.setFragment(this);
         return rootView;
     }
