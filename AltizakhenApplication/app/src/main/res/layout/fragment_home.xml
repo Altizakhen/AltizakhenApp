@@ -14,6 +14,29 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtLabel"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Sort by:"
+            android:id="@+id/sort_by"
+            android:layout_marginLeft="30dp"/>
+
+        <Spinner
+            android:layout_width="228dp"
+            android:layout_height="46dp"
+            android:id="@+id/sort_spinner"
+            android:background="@android:drawable/btn_dropdown"
+            android:layout_marginLeft="30dp"/>
+        </LinearLayout>
+
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +44,8 @@
         android:layout_below="@+id/txtLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="61dp" />
+
+
 
 
 </RelativeLayout>

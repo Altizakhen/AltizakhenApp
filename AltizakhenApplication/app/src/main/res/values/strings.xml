@@ -34,6 +34,11 @@
         <item>@drawable/ic_cat</item>
     </array>
 
+    <string-array name="sort_by_array">
+        <item>Select:</item>
+        <item>price</item>
+        <item>view count</item>
+    </string-array>
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
 </resources>
