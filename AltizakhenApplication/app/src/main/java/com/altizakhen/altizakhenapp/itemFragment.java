@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.chat.ChatActivity;
@@ -74,6 +75,9 @@ public class itemFragment extends FragmentActivity {
             findViewById(R.id.contact_button).setVisibility(View.VISIBLE);
 
         }
+        ApiHelper api = new ApiHelper(getApplication());
+        api.IncreaseCountView();
+        Toast.makeText(getApplication(),"View Count" + item, Toast.LENGTH_SHORT).show();
     }
 
 }

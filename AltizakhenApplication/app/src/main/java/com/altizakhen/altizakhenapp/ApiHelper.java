@@ -241,7 +241,7 @@ public class ApiHelper {
         }
     }
 
-    public class DeleteItemTask extends SpinnerAsyncTask<Item, Item, Item> {
+    public class DeleteItemTask extends AsyncTask<Item, Item, Item> {
         @Override
         protected Item doInBackground(Item... items) {
             Item item = items[0];
@@ -290,10 +290,16 @@ public class ApiHelper {
         }
     }
 
+
+    public void IncreaseCountView() {
+        IncreaseViewCountTask task = new IncreaseViewCountTask();
+        task.execute();
+    }
+
     public class IncreaseViewCountTask extends SpinnerAsyncTask<String, String, Void> {
         @Override
         protected Void doInBackground(String... items) {
-            String itemId = items[0];
+            String itemId = MainActivity.currentItemInView.getId();
             try {
                 itemApi.increaseViewCount(itemId);
             } catch (IOException e) {

@@ -10,6 +10,7 @@
     <string name="action_cart">Cart</string>
     <string name="action_add">Add Item</string>
     <string name="search_title">search</string>
+    <string name="search_hint">type an item, location, description..</string>
 
 
     <!-- Nav Drawer Menu Items -->

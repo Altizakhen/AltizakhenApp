@@ -192,7 +192,9 @@ public class MainActivity extends FragmentActivity {
                 break;
             case R.id.new_item:
                 intent = new Intent(this, newItemFragment.class);
-                break;
+
+            case R.id.search:
+                  break;
         }
 
         Fragment fragment = null;
