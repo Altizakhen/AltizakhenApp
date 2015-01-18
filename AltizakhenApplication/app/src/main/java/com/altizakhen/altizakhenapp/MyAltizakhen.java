@@ -77,7 +77,7 @@ public class MyAltizakhen extends Fragment {
 
             userInfoTextView.setVisibility(View.VISIBLE);
             list.setVisibility(View.VISIBLE);
-
+            myChatsButton.setVisibility(View.VISIBLE);
             img.setVisibility(View.VISIBLE);
             // Request user data and show the results
             Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
@@ -197,7 +197,7 @@ public class MyAltizakhen extends Fragment {
         LoginButton authButton = (LoginButton) rootView
                 .findViewById(R.id.authButton);
         authButton.setReadPermissions(Arrays.asList("public_profile", "user_location"));
-
+        
         authButton.setFragment(this);
         return rootView;
     }
