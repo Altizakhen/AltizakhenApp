@@ -161,6 +161,7 @@ public class MainActivity extends FragmentActivity {
                 displayView(0);
             }
 
+
             BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
 
                 @Override
