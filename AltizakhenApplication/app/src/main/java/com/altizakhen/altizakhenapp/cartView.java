@@ -17,7 +17,8 @@ import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
  * Created by t-mansh on 1/12/2015.
  */
 public class cartView extends Activity{
-    ListView cartView;
+    static public ListView cartView;
+    static public listAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class cartView extends Activity{
         CustomizeFont();
         cartView = (ListView) findViewById(R.id.cartList);
 
-        listAdapter adapter = new listAdapter(this, MainActivity.cart, 1, 0, cartView);
+        adapter = new listAdapter(this, MainActivity.cart, 1, 0, cartView);
         cartView.setAdapter(adapter);
         cartView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
@@ -39,11 +40,6 @@ public class cartView extends Activity{
         });
     }
 
-    protected void onResume(Bundle savedInstanceState) {
-        cartView = (ListView) findViewById(R.id.cartList);
-        listAdapter adapter = new listAdapter(this, MainActivity.cart, 1, 0, cartView);
-        cartView.setAdapter(adapter);
-    }
 
     private void CustomizeFont() {
         Typeface type = Typeface.createFromAsset(getAssets(),"djb.ttf");

@@ -17,6 +17,7 @@ import com.altizakhen.altizakhenapp.ImageDownloader;
 import com.altizakhen.altizakhenapp.MainActivity;
 import com.altizakhen.altizakhenapp.R;
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
+import com.altizakhen.altizakhenapp.cartView;
 
 import java.util.List;
 
@@ -131,7 +132,8 @@ public class listAdapter extends BaseAdapter{
             public void onClick(View view) {
                 MainActivity.cart.remove(currentItem);
                 Toast.makeText(context, "Item deleted from Cart", Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
+                cartView.adapter = new listAdapter(context, MainActivity.cart, 1, 0, cartView.cartView);
+                cartView.cartView.setAdapter(cartView.adapter);
             }
         });
 
