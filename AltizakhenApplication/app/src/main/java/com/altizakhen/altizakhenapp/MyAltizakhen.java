@@ -107,6 +107,7 @@ public class MyAltizakhen extends Fragment {
             img.setVisibility(View.INVISIBLE);
             userId = null;
             MainActivity.userFacebookId = null;
+            MainActivity.userServerId = null;
         }
     }
 
