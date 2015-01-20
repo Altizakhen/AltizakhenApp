@@ -25,6 +25,11 @@
         <item>Books</item>
         <item>Furniture</item>
         <item>Electronics</item>
+        <item>Fashion</item>
+        <item>Babies</item>
+        <item>Jewelry</item>
+        <item>Pets</item>
+        <item>Sports</item>
     </string-array>
 
 

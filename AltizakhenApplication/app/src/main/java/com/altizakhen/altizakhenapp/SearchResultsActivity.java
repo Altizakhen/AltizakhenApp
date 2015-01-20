@@ -51,6 +51,10 @@ public class SearchResultsActivity extends ListActivity {
         }
 
         listAdapter adapter = new listAdapter(getApplication(),result, 0, 1,this.getListView());
+        this.getListView().setCacheColorHint(getResources().getColor(R.color.black));
+        this.getListView().setDrawingCacheBackgroundColor(getResources().getColor(R.color.black));
+        this.setTitleColor(getResources().getColor(R.color.black));
+
         this.getListView().setAdapter(adapter);
     }
 }

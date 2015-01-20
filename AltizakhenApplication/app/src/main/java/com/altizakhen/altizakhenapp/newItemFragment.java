@@ -178,6 +178,21 @@ public class newItemFragment extends Activity {
             case 3:
                 item.setCategoryName("Electronics");
                 break;
+            case 4:
+                item.setCategoryName("Fashion");
+                break;
+            case 5:
+                item.setCategoryName("Babies");
+                break;
+            case 6:
+                item.setCategoryName("Jewelry");
+                break;
+            case 7:
+                item.setCategoryName("Pets");
+                break;
+            case 8:
+                item.setCategoryName("Sports");
+                break;
         }
         api.addItem(item, ((BitmapDrawable)img.getDrawable()).getBitmap());
         this.finish();

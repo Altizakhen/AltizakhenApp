@@ -50,6 +50,11 @@
         <activity android:name=".Categories.Books"/>
         <activity android:name=".Categories.Electronics"/>
         <activity android:name=".Categories.Furniture"/>
+        <activity android:name=".Categories.Fashion"/>
+        <activity android:name=".Categories.Babies"/>
+        <activity android:name=".Categories.Jewelry"/>
+        <activity android:name=".Categories.Pets"/>
+        <activity android:name=".Categories.Sports"/>
         <activity android:name=".newItemFragment"/>
         <activity android:name=".chat.ChatActivity"/>
         <activity android:name=".chat.MyChatsFragments"/>

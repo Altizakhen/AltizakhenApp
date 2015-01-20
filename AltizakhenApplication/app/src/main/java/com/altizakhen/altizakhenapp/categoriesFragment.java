@@ -9,9 +9,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.altizakhen.altizakhenapp.Categories.Babies;
 import com.altizakhen.altizakhenapp.Categories.Books;
 import com.altizakhen.altizakhenapp.Categories.Electronics;
+import com.altizakhen.altizakhenapp.Categories.Fashion;
 import com.altizakhen.altizakhenapp.Categories.Furniture;
+import com.altizakhen.altizakhenapp.Categories.Jewelry;
+import com.altizakhen.altizakhenapp.Categories.Pets;
+import com.altizakhen.altizakhenapp.Categories.Sports;
 import com.altizakhen.altizakhenapp.gridAdapter.gridAdapter;
 
 import java.util.ArrayList;
@@ -56,6 +61,26 @@ public class categoriesFragment extends Fragment {
                         intent = new Intent(getActivity(), Furniture.class);
                         catName = "Furniture";
                         break;
+                    case 3:
+                        intent = new Intent(getActivity(), Fashion.class);
+                        catName = "Fashion";
+                        break;
+                    case 4:
+                        intent = new Intent(getActivity(), Babies.class);
+                        catName = "Babies";
+                        break;
+                    case 5:
+                        intent = new Intent(getActivity(), Jewelry.class);
+                        catName = "Jewelry";
+                        break;
+                    case 6:
+                        intent = new Intent(getActivity(), Pets.class);
+                        catName = "Pets";
+                        break;
+                    case 7:
+                        intent = new Intent(getActivity(), Sports.class);
+                        catName = "Sports";
+                        break;
                     default:
                         catName = "Books";
                 }
@@ -74,6 +99,12 @@ public class categoriesFragment extends Fragment {
         items.add(R.drawable.ic_books);
         items.add(R.drawable.ic_electonics);
         items.add(R.drawable.ic_furniture);
+        items.add(R.drawable.ic_fashion);
+        items.add(R.drawable.ic_babies);
+        items.add(R.drawable.ic_jewalary);
+        items.add(R.drawable.ic_pets);
+        items.add(R.drawable.ic_sports);
+
     }
 
 }

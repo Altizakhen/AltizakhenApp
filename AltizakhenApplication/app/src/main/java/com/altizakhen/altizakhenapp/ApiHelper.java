@@ -118,8 +118,10 @@ public class ApiHelper {
         protected void onPostExecute(List<Item> list) {
             super.onPostExecute(list);
             MainActivity.catItems = new ArrayList<Item>();
-            for (Item i : list){
-                MainActivity.catItems.add(i);
+            if (!list.isEmpty()){
+                for (Item i : list){
+                    MainActivity.catItems.add(i);
+                }
             }
             context.startActivity(intent);
 
