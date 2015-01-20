@@ -105,6 +105,7 @@ public class MyAltizakhen extends Fragment {
             userInfoTextView.setVisibility(View.INVISIBLE);
             list.setVisibility(View.INVISIBLE);
             img.setVisibility(View.INVISIBLE);
+            myChatsButton.setVisibility(View.INVISIBLE);
             userId = null;
             MainActivity.userFacebookId = null;
             MainActivity.userServerId = null;
@@ -190,8 +191,10 @@ public class MyAltizakhen extends Fragment {
         myChatsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MyChatsFragments.class);
-                getActivity().startActivity(intent);
+                if (MainActivity.userServerId != null){
+                    Intent intent = new Intent(getActivity(), MyChatsFragments.class);
+                    getActivity().startActivity(intent);
+                }
             }
         });
 

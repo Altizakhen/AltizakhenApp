@@ -50,6 +50,9 @@ public class MyChatsFragments extends Activity {
                 MyChatsFragments.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (MainActivity.userServerId == null) {
+                            return;
+                        }
                         apiHelper.getUserChats(MainActivity.userServerId, lv);
                     }
                 });
