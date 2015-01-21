@@ -7,12 +7,12 @@
         android:id="@+id/txtLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="30dp"
         android:text="What's new and hot"
         android:textColor="#ff45a7c0"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="60dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

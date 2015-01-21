@@ -118,7 +118,7 @@ public class ApiHelper {
         protected void onPostExecute(List<Item> list) {
             super.onPostExecute(list);
             MainActivity.catItems = new ArrayList<Item>();
-            if (!list.isEmpty()){
+            if (list != null && !list.isEmpty()){
                 for (Item i : list){
                     MainActivity.catItems.add(i);
                 }
