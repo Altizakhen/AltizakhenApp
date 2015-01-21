@@ -93,18 +93,6 @@ public class MainActivity extends FragmentActivity {
             fragments[1] = new categoriesFragment();
             fragments[2] = new MyAltizakhen();
 
-            if (savedInstanceState == null) {
-                    currentFragmentIndex = 0;
-                    getSupportFragmentManager().beginTransaction()
-                            .add(new PlaceholderFragment(), " ")
-                            .commit();
-            } else {
-                currentFragmentIndex = savedInstanceState.getInt("fragmentIndex");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .attach( fragments[currentFragmentIndex]).commit();
-            }
-
 
 
 
@@ -169,6 +157,9 @@ public class MainActivity extends FragmentActivity {
             if (savedInstanceState == null) {
                 // on first time display view for first nav item
                 displayView(0);
+            } else {
+                currentFragmentIndex = savedInstanceState.getInt("fragmentIndex");
+                displayView(currentFragmentIndex);
             }
 
 
@@ -191,6 +182,18 @@ public class MainActivity extends FragmentActivity {
 
             IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
             registerReceiver(networkStateReceiver, filter);
+
+            if (savedInstanceState == null) {
+                currentFragmentIndex = 0;
+                getSupportFragmentManager().beginTransaction()
+                        .add(new PlaceholderFragment(), " ")
+                        .commit();
+            } else {
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .attach( fragments[currentFragmentIndex]).commit();
+            }
         }
     }
 
@@ -363,7 +366,6 @@ public class MainActivity extends FragmentActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
-        currentFragmentIndex = 2;
     }
 
     @Override
