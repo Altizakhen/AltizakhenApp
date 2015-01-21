@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity {
     public static Item currentItemInView;
     public static Bitmap currentItemBitmap;
 
+    public int currentFragmentIndex ;
     private Fragment[] fragments;
 
 
@@ -87,17 +88,26 @@ public class MainActivity extends FragmentActivity {
         } else {
 
             Firebase.setAndroidContext(this);
-
-            if (savedInstanceState == null) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(new PlaceholderFragment(), " ")
-                        .commit();
-            }
-
             fragments = new Fragment[3];
             fragments[0] = new HomeFragment();
             fragments[1] = new categoriesFragment();
             fragments[2] = new MyAltizakhen();
+
+            if (savedInstanceState == null) {
+                    currentFragmentIndex = 0;
+                    getSupportFragmentManager().beginTransaction()
+                            .add(new PlaceholderFragment(), " ")
+                            .commit();
+            } else {
+                currentFragmentIndex = savedInstanceState.getInt("fragmentIndex");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .attach( fragments[currentFragmentIndex]).commit();
+            }
+
+
+
+
 
             this.cart = new ArrayList<Item>();
 
@@ -287,15 +297,18 @@ public class MainActivity extends FragmentActivity {
                     fragment = null;
                 }else {
                     fragment = fragments[0];
+                    currentFragmentIndex = 0;
                 }
 
                 break;
             case 1:
 
                 fragment = fragments[1];
+                currentFragmentIndex = 1;
                 break;
             case 2:
                 fragment = fragments[2];
+                currentFragmentIndex = 2;
                 break;
   /*          case 3:
                 fragment = new CommunityFragment();
@@ -350,7 +363,16 @@ public class MainActivity extends FragmentActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+        currentFragmentIndex = 2;
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("fragmentIndex",currentFragmentIndex);
+    }
+
 
 
     public static class PlaceholderFragment extends Fragment {

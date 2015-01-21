@@ -48,7 +48,12 @@ public class listAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return Items.size();
+        if (Items != null) {
+            return Items.size();
+        }else {
+            return 0;
+        }
+
     }
 
     @Override
