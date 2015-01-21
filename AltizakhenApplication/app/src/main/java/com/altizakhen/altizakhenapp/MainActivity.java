@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.altizakhen.altizakhenapp.adapter.NavDrawerListAdapter;
@@ -102,7 +104,7 @@ public class MainActivity extends FragmentActivity {
                 currentFragmentIndex = savedInstanceState.getInt("fragmentIndex");
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .attach( fragments[currentFragmentIndex]).commit();
+                        .add( fragments[currentFragmentIndex], " ").commit();
             }
 
 
@@ -213,6 +215,11 @@ public class MainActivity extends FragmentActivity {
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView) searchView.findViewById(id);
+        textView.setTextColor(Color.BLACK);
+
+
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
 
