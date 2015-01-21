@@ -3,6 +3,7 @@ package com.altizakhen.altizakhenapp;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,8 +93,11 @@ public class allItemsListAdapter extends BaseAdapter {
 //       holder.itemIcon.setImageResource(currentItem.getIconId());
         holder.itemIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         holder.Name.setText(currentItem.getName());
+        holder.Name.setTextColor(Color.BLACK);
         holder.Price.setText(String.valueOf(currentItem.getPrice()));
+        holder.Price.setTextColor(Color.BLACK);
         holder.Location.setText(currentItem.getLocation());
+        holder.Location.setTextColor(Color.BLACK);
 
         Button addToCart = (Button)view.findViewById(R.id.add_to_cart);
         if (visibility == 0){
