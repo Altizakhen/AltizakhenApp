@@ -316,15 +316,6 @@ public class MainActivity extends FragmentActivity {
                 fragment = fragments[2];
                 currentFragmentIndex = 2;
                 break;
-  /*          case 3:
-                fragment = new CommunityFragment();
-                break;
-            case 4:
-                fragment = new PagesFragment();
-                break;
-            case 5:
-                fragment = new WhatsHotFragment();
-                break;*/
 
             default:
                 break;

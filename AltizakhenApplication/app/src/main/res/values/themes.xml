@@ -6,7 +6,7 @@
     </style>
 
     <!-- ActionBar styles -->
-    <style name="MyActionBar" parent="android:Widget.Holo.ActionBar">
+    <style name="MyActionBar" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/action_bar</item>
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
     </style>
