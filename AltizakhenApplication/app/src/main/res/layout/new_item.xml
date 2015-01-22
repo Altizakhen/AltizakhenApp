@@ -36,7 +36,10 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:drawable/editbox_background"
-            android:enabled="true" />
+            android:enabled="true"
+            android:maxLines="1"
+            android:singleLine="true"
+            />
 
         <Spinner
             android:layout_width="228dp"
@@ -61,7 +64,9 @@
             android:layout_height="40dp"
             android:inputType="numberSigned"
             android:layout_gravity="center_horizontal"
-            android:background="@android:drawable/edit_text" />
+            android:background="@android:drawable/edit_text"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -79,7 +84,8 @@
             android:layout_width="200dp"
             android:layout_height="114dp"
             android:layout_gravity="center_horizontal"
-            android:background="@android:drawable/edit_text" />
+            android:background="@android:drawable/edit_text"
+           />
 
         <TextView
             android:id="@+id/textView6"
@@ -98,7 +104,9 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:drawable/edit_text"
-            android:ellipsize="middle" />
+            android:ellipsize="middle"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/button"
