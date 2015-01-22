@@ -5,6 +5,8 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.altizakhen.altizakhenapp.backend.itemApi.model.Item;
 import com.altizakhen.altizakhenapp.itemsListAdapter.listAdapter;
@@ -56,5 +58,14 @@ public class SearchResultsActivity extends ListActivity {
         this.setTitleColor(getResources().getColor(R.color.black));
 
         this.getListView().setAdapter(adapter);
+        this.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MainActivity.currentItemInView = (Item)adapterView.getAdapter().getItem(i);
+                MainActivity.currentItemBitmap = ((listAdapter)adapterView.getAdapter()).getImage(i);
+                Intent intent = new Intent(getApplication(), itemFragment.class);
+                startActivity(intent);
+            }
+        });
     }
 }
